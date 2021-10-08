@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <link rel="stylesheet" type = "text/css" href = "/static/style.css">
+    <script type ="text/javascript" src="/static/javascript.js"></script>
+    <title> {% block title %} {% endblock %}</title>
+</head>
+<body>
+    <header>
+        <a href = "/" class="logo">Sketch Daily Website</a>
+        <nav>
+            <ul class = "nav_links">
+                <li><a href = "/">About</a></li>
+                <li><a href = "/today">Today's Themes</a></li>
+                <li><a href = "/past">Themes for the Past Week</a>
+            </ul>
+        </nav>
+    </header>
+    <main>
+        {% block main %}
+        {% endblock %}
+    </main>
+</body>
+<script>
+    window.onload = loadPictures('{{ maintheme }}', true, '{{ upsplash_access }}')
+    window.onload = loadPictures('{{ alttheme }}', false, '{{ upsplash_access }}')
+</script>
+</html>
