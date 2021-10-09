@@ -33,16 +33,18 @@
          image.setAttribute("onmouseover", "onHover(this)")
          image.src = currentpic.urls["small"]
          document.getElementById(currentpic.id + "div").appendChild(image)
-         // now also make a little description for the image
+         // now also make a little description with crediting stuff for the image
+         // make a div for the description, put that description div into the div with the image
+         imgdescriptdiv = document.createElement("div")
+         document.getElementById(currentpic.id + "div").appendChild(imgdescriptdiv);
+         imgdescriptdiv.setAttribute("id", currentpic.id + "descriptiondiv")
+         imgdescriptdiv.setAttribute("class", "imgdescript")
+         // now you actually make the text part by making a p element and adding it into the imgdescript div we made
          imgdescript = document.createElement("p")
          imgdescript.setAttribute("id", currentpic.id + "description")
-         document.getElementById(currentpic.id + "div").appendChild(imgdescript);
+         document.getElementById(currentpic.id + "descriptiondiv").appendChild(imgdescript);
+         // now we change the DOM to actually have text
          photographer = currentpic.user
-         console.log(photographer)
-         console.log(photographer.links)
-         console.log(photographer.links.self)
-
-         // make sure to fix this link this later on. upsplash API/about
          document.getElementById(currentpic.id + "description").innerHTML = `Photo by <a href = '${photographer.links.html}?utm_source=sketchdailywebapp&utm_medium=referral'> ${photographer.name} </a> from <a href="https://unsplash.com/?utm_source=sketchdailywebapp&utm_medium=referral"> Upsplash`;
      }
 

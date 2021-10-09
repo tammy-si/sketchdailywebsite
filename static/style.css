@@ -8,6 +8,7 @@
     font-family: "Montserrat", sans-serif;
 }
 
+/* CSS for navbar */
 li, a {
     font-family: "Montserrat", sans-serif;
     font-weight: 500;
@@ -43,6 +44,7 @@ header {
     color: #0088a9
 }
 
+/* CSS for informatoin on the about page */
 .info h1 {
     text-align: center;    
     padding: 30px;
@@ -68,11 +70,51 @@ header {
     cursor: pointer;
 }
 
-.mainthemepics, .altthemepics {
-    column-count: 4;
+
+
+/* CSS for the theme page */
+.mainthemepics, .altthemepics 
+{
+    column-gap: 0px;
+    text-align: center;
 }
 
 .imagediv {
-    padding: 5px;
-    display: inline-block;
+    position: relative;
+    margin: auto
+}
+
+.imgdescript {
+    position: absolute;
+    left: 10px;
+    bottom: 15px;
+}
+
+@media (min-width: 1551px)
+{
+    .mainthemepics, .altthemepics 
+    {
+        column-count: 4;
+    }
+}
+@media (min-width: 1220px) and (max-width: 1550px)
+{
+    .mainthemepics, .altthemepics 
+    {
+        column-count: 3;
+    }
+}
+@media (min-width: 810px) and (max-width: 1219px)
+{
+    .mainthemepics, .altthemepics 
+    {
+        column-count: 2;
+    }
+}
+@media (max-width: 470px)
+{
+    .mainthemepics, .altthemepics 
+    {
+        column-count: 1;
+    }
 }
