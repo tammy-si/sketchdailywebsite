@@ -12,20 +12,33 @@
  async function loadPictures (theme, main, upsplash_access_key) {
      console.log("hello" + theme)
      // connecting to the API and making a request for the API info
-     const response = await fetch('https://api.unsplash.com/search/photos?query=' + theme +'&client_id=' + upsplash_access_key)
+     const response = await fetch('https://api.unsplash.com/search/photos?per_page=30&query=' + theme +'&client_id=' + upsplash_access_key)
      // get what the server sent back (response) and then make it into json so we can read and parse
      main_data = await response.json()
+     // for just in case Upsplash doesn't have any images for the themes
+     if ((main_data.results).length == 0) {
+         if (main == true) {
+             console.log("Upsplash has no images for today's main theme")
+         }
+         else if (main == false) {
+             console.log("Upsplash has no today's alternate theme")
+         }
+     }
      // go through all the images we've just scrapped from upsplash
      for (let i = 0; i < (main_data.results).length; i ++){
+         if (main == true) {
+            console.log(main_data.results).length
+         }
          // for each image we make a new image tag and add it to the html. we make sure that we give each image tag the onmouseover attribute
          currentpic = main_data.results[i]
          var div = document.createElement("div");
          div.setAttribute("class", "imagediv");
          div.setAttribute("id", currentpic.id + "div")
+         // add images to either to main theme pics div or alttheme pics depending on which functions was called
          if (main == true){
              document.querySelector('.mainthemepics').appendChild(div)
          }
-         else{
+         else {
              document.querySelector('.altthemepics').appendChild(div)
          }
          image = document.createElement('img')
@@ -49,3 +62,8 @@
      }
 
  }
+ 
+// to fix the image captions TO DO
+ window.addEventListener("resize", function () {
+    console.log(window.innerWidth)
+});

@@ -22,7 +22,20 @@
     </main>
 </body>
 <script>
-    window.onload = loadPictures('{{ maintheme }}', true, '{{ upsplash_access }}')
-    window.onload = loadPictures('{{ alttheme }}', false, '{{ upsplash_access }}')
+    // calling the functions that load the pictures.
+    try {
+        console.log("tester")
+        window.onload = loadPictures('{{ maintheme }}', true, '{{ upsplash_access }}')
+    }
+    catch(err) {
+            console.error(error);
+    }
+    try {
+        console.log("test")
+        window.onload = loadPictures('{{ alttheme }}', false, '{{ upsplash_access }}')
+    }
+    catch(error) {
+        console.error(error);
+    }
 </script>
 </html>

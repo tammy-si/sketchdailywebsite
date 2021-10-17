@@ -44,7 +44,7 @@ header {
     color: #0088a9
 }
 
-/* CSS for informatoin on the about page */
+/* CSS for information on the about page */
 .info h1 {
     text-align: center;    
     padding: 30px;
@@ -81,13 +81,14 @@ header {
 
 .imagediv {
     position: relative;
-    margin: auto
+    padding: 5px;
 }
 
 .imgdescript {
     position: absolute;
     left: 10px;
-    bottom: 15px;
+    bottom: 10px;
+    margin-left: 100px;
 }
 
 @media (min-width: 1551px)
@@ -96,6 +97,9 @@ header {
     {
         column-count: 4;
     }
+    .imgdescript {
+        margin-left: 50%;
+    }
 }
 @media (min-width: 1220px) and (max-width: 1550px)
 {
@@ -103,12 +107,18 @@ header {
     {
         column-count: 3;
     }
+    .imgdescript {
+        margin-left: 45%;
+    }
 }
 @media (min-width: 810px) and (max-width: 1219px)
 {
     .mainthemepics, .altthemepics 
     {
         column-count: 2;
+    }
+    .imgdescript {
+        margin-left: 30%;
     }
 }
 @media (max-width: 470px)

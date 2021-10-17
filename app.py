@@ -23,11 +23,6 @@ def today():
     today = date.today()
     today = today.strftime("%m/%d/%Y")
     config = dotenv_values(".env")
-    print(config)
-    print(config["REDDIT_CLIENT_ID"])
-    print(config["REDDIT_SECRET"])
-    print(config["REDDIT_USER_AGENT"])
-
     # authenticating for praw
     reddit = praw.Reddit(
         client_id = config["REDDIT_CLIENT_ID"],
@@ -38,14 +33,11 @@ def today():
     # get the first post in sketchdaily because it's usually the current day's theme
     for post in reddit.subreddit("SketchDaily").hot(limit=1):
         # get the main theme
-        title = post.title.split()
-        print(title[-1])
+        title = post.title.split("- ")
         theme = title[-1]
-        # getting the alternate theme by getting the post's body and looking of the words alt theme.
-        body = post.selftext.split()
-        for i in range(len(body)):
-            if body[i] == "Alt" or body[i] == "alt":
-                alternatetheme = " ".join((body[i], body[i+1], body[i+2])) 
+        # getting the alternate theme by getting the post's body
+        body = post.selftext.split(": ")
+        alternatetheme = body[1].split("\r")[0]
 
     # getting the reference pictures
     return render_template("theme.html", today = today, maintheme = theme, alttheme = alternatetheme, upsplash_access=config["UPSPLASH_ACCESS_KEY"])
