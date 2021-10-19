@@ -16,7 +16,7 @@
      // get what the server sent back (response) and then make it into json so we can read and parse
      main_data = await response.json()
      // for just in case Upsplash doesn't have any images for the themes
-     if ((main_data.results).length == 0) {
+     if (main_data.results.length == 0) {
          if (main == true) {
              console.log("Upsplash has no images for today's main theme")
          }
@@ -24,10 +24,11 @@
              console.log("Upsplash has no today's alternate theme")
          }
      }
+     console.log(main_data.results.length)
      // go through all the images we've just scrapped from upsplash
-     for (let i = 0; i < (main_data.results).length; i ++){
+     for (let i = 0; i < main_data.results.length; i ++){
          if (main == true) {
-            console.log(main_data.results).length
+            console.log(main_data.results.length)
          }
          // for each image we make a new image tag and add it to the html. we make sure that we give each image tag the onmouseover attribute
          currentpic = main_data.results[i]
@@ -55,6 +56,7 @@
          // now you actually make the text part by making a p element and adding it into the imgdescript div we made
          imgdescript = document.createElement("p")
          imgdescript.setAttribute("id", currentpic.id + "description")
+         imgdescript.setAttribute("class", "imgdescripttext")
          document.getElementById(currentpic.id + "descriptiondiv").appendChild(imgdescript);
          // now we change the DOM to actually have text
          photographer = currentpic.user

@@ -88,17 +88,20 @@ header {
     position: absolute;
     left: 10px;
     bottom: 10px;
-    margin-left: 100px;
+    margin-left: 4em;
 }
 
+.imgdescripttext{ 
+    color:white;
+    background-color: rgba(0,0,0, 0.9);
+}
+
+/* CSS to resize the columns when the window is smaller */
 @media (min-width: 1551px)
 {
     .mainthemepics, .altthemepics 
     {
         column-count: 4;
-    }
-    .imgdescript {
-        margin-left: 50%;
     }
 }
 @media (min-width: 1220px) and (max-width: 1550px)
@@ -107,9 +110,6 @@ header {
     {
         column-count: 3;
     }
-    .imgdescript {
-        margin-left: 45%;
-    }
 }
 @media (min-width: 810px) and (max-width: 1219px)
 {
@@ -117,14 +117,17 @@ header {
     {
         column-count: 2;
     }
-    .imgdescript {
-        margin-left: 30%;
+    .nav_links {
+        background-color: #24252A;
     }
 }
-@media (max-width: 470px)
+@media (max-width: 809px)
 {
     .mainthemepics, .altthemepics 
     {
         column-count: 1;
+    }
+    .nav_links {
+        background-color: #24252A;
     }
 }
