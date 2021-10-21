@@ -10,7 +10,6 @@
 
  // load the images from upsplash based on today's theme
  async function loadPictures (theme, main, upsplash_access_key) {
-     console.log("hello" + theme)
      // connecting to the API and making a request for the API info
      const response = await fetch('https://api.unsplash.com/search/photos?per_page=30&query=' + theme +'&client_id=' + upsplash_access_key)
      // get what the server sent back (response) and then make it into json so we can read and parse
@@ -24,12 +23,8 @@
              console.log("Upsplash has no today's alternate theme")
          }
      }
-     console.log(main_data.results.length)
      // go through all the images we've just scrapped from upsplash
      for (let i = 0; i < main_data.results.length; i ++){
-         if (main == true) {
-            console.log(main_data.results.length)
-         }
          // for each image we make a new image tag and add it to the html. we make sure that we give each image tag the onmouseover attribute
          currentpic = main_data.results[i]
          var div = document.createElement("div");
@@ -42,9 +37,11 @@
          else {
              document.querySelector('.altthemepics').appendChild(div)
          }
+         // make the image and add attributes like class and id to the image
          image = document.createElement('img')
          image.setAttribute("id", currentpic["id"])
          image.setAttribute("onmouseover", "onHover(this)")
+         image.setAttribute("class", "theimgs")
          image.src = currentpic.urls["small"]
          document.getElementById(currentpic.id + "div").appendChild(image)
          // now also make a little description with crediting stuff for the image
@@ -62,10 +59,15 @@
          photographer = currentpic.user
          document.getElementById(currentpic.id + "description").innerHTML = `Photo by <a href = '${photographer.links.html}?utm_source=sketchdailywebapp&utm_medium=referral'> ${photographer.name} </a> from <a href="https://unsplash.com/?utm_source=sketchdailywebapp&utm_medium=referral"> Upsplash`;
      }
-
  }
  
-// to fix the image captions TO DO
- window.addEventListener("resize", function () {
-    console.log(window.innerWidth)
-});
+
+// function to make the image divs the max height as the scraped image
+function sizing() {
+    var images = document.getElementsByClassName("theimgs");
+    console.log(images)
+    console.log(images.length)
+    for (var i = 0; i < images.length; i++) {
+        console.log("test")
+    }
+}
