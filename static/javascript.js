@@ -5,7 +5,7 @@
  // when we hover over a picture
  function onHover(pic) {
      // pic is the current image we are hovering over accessed by passing in the current image by using the "this" keyword
-     console.log("Testing")
+     console.log("Testing");
  }
 
  // load the images from upsplash based on today's theme
@@ -29,21 +29,25 @@
          currentpic = main_data.results[i]
          var div = document.createElement("div");
          div.setAttribute("class", "imagediv");
-         div.setAttribute("id", currentpic.id + "div")
+         div.setAttribute("id", currentpic.id + "div");
          // add images to either to main theme pics div or alttheme pics depending on which functions was called
          if (main == true){
-             document.querySelector('.mainthemepics').appendChild(div)
+             document.querySelector('.mainthemepics').appendChild(div);
          }
          else {
-             document.querySelector('.altthemepics').appendChild(div)
+             document.querySelector('.altthemepics').appendChild(div);
          }
          // make the image and add attributes like class and id to the image
          image = document.createElement('img')
          image.setAttribute("id", currentpic["id"])
          image.setAttribute("onmouseover", "onHover(this)")
          image.setAttribute("class", "theimgs")
-         image.src = currentpic.urls["small"]
-         document.getElementById(currentpic.id + "div").appendChild(image)
+         // putting the image into the DOM. We get the height of the image so we can restrict height of the div
+         image.src = currentpic.urls["small"];
+         document.getElementById(currentpic.id + "div").appendChild(image);
+         divHeight = document.getElementById(currentpic.id).clientHeight;
+         console.log(divHeight)
+         document.getElementById(currentpic.id + "div").style.maxHeight = String(divHeight) + "px";
          // now also make a little description with crediting stuff for the image
          // make a div for the description, put that description div into the div with the image
          imgdescriptdiv = document.createElement("div")
@@ -51,23 +55,13 @@
          imgdescriptdiv.setAttribute("id", currentpic.id + "descriptiondiv")
          imgdescriptdiv.setAttribute("class", "imgdescript")
          // now you actually make the text part by making a p element and adding it into the imgdescript div we made
-         imgdescript = document.createElement("p")
-         imgdescript.setAttribute("id", currentpic.id + "description")
-         imgdescript.setAttribute("class", "imgdescripttext")
+         imgdescript = document.createElement("p");
+         imgdescript.setAttribute("id", currentpic.id + "description");
+         imgdescript.setAttribute("class", "imgdescripttext");
          document.getElementById(currentpic.id + "descriptiondiv").appendChild(imgdescript);
          // now we change the DOM to actually have text
-         photographer = currentpic.user
+         photographer = currentpic.user;
          document.getElementById(currentpic.id + "description").innerHTML = `Photo by <a href = '${photographer.links.html}?utm_source=sketchdailywebapp&utm_medium=referral'> ${photographer.name} </a> from <a href="https://unsplash.com/?utm_source=sketchdailywebapp&utm_medium=referral"> Upsplash`;
      }
  }
  
-
-// function to make the image divs the max height as the scraped image
-function sizing() {
-    var images = document.getElementsByClassName("theimgs");
-    console.log(images)
-    console.log(images.length)
-    for (var i = 0; i < images.length; i++) {
-        console.log("test")
-    }
-}

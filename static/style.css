@@ -81,16 +81,18 @@ header {
 
 .imagediv {
     position: relative;
-    margin: auto;
+    margin: 5px auto;
     max-width: 400px;
     overflow:hidden;
-    padding: 5px;
 }
 
 .theimgs {
     opacity:0.9;
     transition: .3s ease-in-out;
+    width: 100%;
 }
+
+/* have a cool zoom in effect on hover. Achieved used overflow:hidden on the img div so wouldn't overflow. Also set div's max dimension
 
 .theimgs:hover {
     opacity: 1;
@@ -101,6 +103,7 @@ header {
     display: none;
 }
 
+/* display the img caption on hover */
 .imagediv:hover .imgdescript{
     display: inline;
     position: absolute;
