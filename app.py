@@ -34,6 +34,7 @@ def today():
     for post in reddit.subreddit("SketchDaily").hot(limit=1):
         # get the main theme
         title = post.title.split("- ")
+        print(title)
         theme = title[-1]
         # getting the alternate theme by getting the post's body
         body = post.selftext.split(": ")

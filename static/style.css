@@ -73,6 +73,11 @@ header {
 
 
 /* CSS for the theme page */
+.headings {
+    display: block;
+    width: 100%;
+    text-align: center;
+}
 .mainthemepics, .altthemepics 
 {
     column-gap: 0px;
@@ -81,19 +86,21 @@ header {
 
 .imagediv {
     position: relative;
-    margin: 5px auto;
+    margin: 0px auto;
+    margin-bottom: 10px;
     max-width: 400px;
     overflow:hidden;
 }
 
 .theimgs {
-    opacity:0.9;
+    opacity:0.93;
     transition: .3s ease-in-out;
     width: 100%;
+    height: 100%;
 }
 
-/* have a cool zoom in effect on hover. Achieved used overflow:hidden on the img div so wouldn't overflow. Also set div's max dimension
-
+/* have a cool zoom in effect on hover. Achieved used overflow:hidden on the img div so wouldn't overflow. 
+Also set div's max dimensions according the images' width and height" */
 .theimgs:hover {
     opacity: 1;
     transform: scale(1.1);
