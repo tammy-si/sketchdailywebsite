@@ -1,9 +1,10 @@
 // sotring the info scraped from upsplash
 var mainStorage;
 var altStorage;
+var tempImage = new Image();
 
  // when we hover over a picture
- function onHover(pic) {
+function onHover(pic) {
     // pic is the current image we are hovering over accessed by passing in the current image by using the "this" keyword
     console.log("Testing");
     pic.onclick = function () {
@@ -22,13 +23,6 @@ var altStorage;
     const response = await fetch('https://api.unsplash.com/search/photos?per_page=30&query=' + theme +'&client_id=' + upsplash_access_key)
     // get what the server sent back (response) and then make it into json so we can read and parse
     data = await response.json()
-    // storing the info scraped so we don't really have to request again
-    if (main == true) {
-        mainStorage = data;
-    } 
-    else {
-        altStorage = data;
-    }
     // for just in case Upsplash doesn't have any images for the themes
     if (data.results.length == 0) {
         console.log(main ? "Upsplash has no images for today's main theme" : "Upsplash has no images for today's alternate theme");
@@ -52,11 +46,9 @@ var altStorage;
         image.setAttribute("id", currentpic["id"])
         image.setAttribute("onmouseover", "onHover(this)")
         image.setAttribute("class", "theimgs")
-        // putting the image into the DOM. We get the height of the image so we can restrict height of the div
+        // putting the image into the DOM.
         image.src = currentpic.urls["small"];
         document.getElementById(currentpic.id + "div").appendChild(image);
-        divHeight = document.getElementById(currentpic.id).clientHeight;
-        document.getElementById(currentpic.id + "div").style.maxHeight = String(divHeight) + "px";
         // now also make a little description with crediting stuff for the image
         // make a div for the description, put that description div into the div with the image
         imgdescriptdiv = document.createElement("div")
@@ -72,5 +64,21 @@ var altStorage;
         photographer = currentpic.user;
         document.getElementById(currentpic.id + "description").innerHTML = `Photo by <a href = '${photographer.links.html}?utm_source=sketchdailywebapp&utm_medium=referral'> ${photographer.name} </a> from <a href="https://unsplash.com/?utm_source=sketchdailywebapp&utm_medium=referral"> Upsplash`;
     }
+    // storing info so we don't really have to request again. also calls functions to change the image div heights
+    if (main == true) {
+        mainStorage = data;
+    } 
+    else {
+        altStorage = data;
+    }
 }
- 
+
+// change the max height of the main theme divs
+function maxHeightMain () {
+    
+}
+
+// change the max height of the alt theme divs
+function maxHeightAlt() {
+
+}

@@ -20,20 +20,20 @@
     </div>
 </div>
 <script>
-    // calling the functions that load the pictures.
+    // calling the functions that losad the pictures.
     try {
-        console.log("tester")
-        window.onload = loadPictures('{{ maintheme }}', true, '{{ upsplash_access }}')
+        console.log("tester");
+        window.onload = loadPictures('{{ maintheme }}', true, '{{ upsplash_access }}');
     }
     catch(err) {
             console.error(error);
     }
     try {
-        console.log("test")
-        window.onload = loadPictures('{{ alttheme }}', false, '{{ upsplash_access }}')
-    }
+        console.log("test");
+        window.onload = loadPictures('{{ alttheme }}', false, '{{ upsplash_access }}');    }
     catch(error) {
         console.error(error);
     }
+    
 </script>
 {% endblock %}
