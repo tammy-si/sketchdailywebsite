@@ -1,12 +1,20 @@
-// sotring the info scraped from upsplash
-var mainStorage;
-var altStorage;
-var tempImage = new Image();
+// storing the info scraped from upsplash
+let mainStorage = null;
+let altStorage = null;
+// flags to make sure that you only change max heights once
+mainflag = false;
+altflag = false;
 
  // when we hover over a picture
 function onHover(pic) {
     // pic is the current image we are hovering over accessed by passing in the current image by using the "this" keyword
     console.log("Testing");
+    if (mainflag == false) {
+        maxHeightMain();
+    }
+    if (altflag == false) {
+        maxHeightAlt();
+    }
     pic.onclick = function () {
         console.log(mainStorage);
         let j = 0;
@@ -19,6 +27,7 @@ function onHover(pic) {
 
  // load the images from upsplash based on today's theme
  async function loadPictures (theme, main, upsplash_access_key) {
+    console.log("Ran;lienf")
     // connecting to the API and making a request for the API info
     const response = await fetch('https://api.unsplash.com/search/photos?per_page=30&query=' + theme +'&client_id=' + upsplash_access_key)
     // get what the server sent back (response) and then make it into json so we can read and parse
@@ -27,6 +36,7 @@ function onHover(pic) {
     if (data.results.length == 0) {
         console.log(main ? "Upsplash has no images for today's main theme" : "Upsplash has no images for today's alternate theme");
     }
+    console.log("crickey")
     // go through all the images we've just scrapped from upsplash
     for (let i = 0; i < data.results.length; i ++){
         // for each image we make a new image tag and add it to the html. we make sure that we give each image tag the onmouseover attribute
@@ -66,19 +76,35 @@ function onHover(pic) {
     }
     // storing info so we don't really have to request again. also calls functions to change the image div heights
     if (main == true) {
+        console.log("main ran")
         mainStorage = data;
     } 
     else {
+        console.log("alt ran")
         altStorage = data;
     }
 }
 
 // change the max height of the main theme divs
 function maxHeightMain () {
-    
+    for (let i = 0; i < mainStorage.results.length; i ++) {
+        id = mainStorage.results[i].id
+        pic = document.getElementById(mainStorage.results[i].id)
+        // make the pictures div the same as the picture height
+        pic.parentElement.style.maxHeight = pic.height + "px";
+    }
+    // flag this so we only run it once and don't waste runtime
+    mainflag = true;
 }
 
 // change the max height of the alt theme divs
-function maxHeightAlt() {
-
+function maxHeightAlt () {
+    for (let i = 0; i < altStorage.results.length; i ++) {
+        id = altStorage.results[i].id
+        pic = document.getElementById(altStorage.results[i].id)
+        // make the pictures div the same as the picture height
+        pic.parentElement.style.maxHeight = pic.height + "px";
+    }
+    // flag this so we only run it once and don't waste runtime
+    altflag = true;
 }
