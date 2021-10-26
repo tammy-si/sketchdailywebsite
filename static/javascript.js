@@ -15,12 +15,17 @@ function onHover(pic) {
     if (altflag == false) {
         maxHeightAlt();
     }
+    // when the user clicks on an iamge
     pic.onclick = function () {
+        document.getElementById("closeButton").style.display = "initial";
         console.log(mainStorage);
-        let j = 0;
-        while (j < 10) {
-            console.log("test");
-            j += 1
+        // loop through the storages to check if the imaged clicked on is a main theme image
+        for(let i = 0; i < mainStorage.results.length; i++) {
+            console.log(mainStorage.results[i])
+            // if it is a main theme image
+            if (pic.id == mainStorage.results[i].id) {
+                    
+            }
         }
     }
 }
@@ -95,6 +100,8 @@ function maxHeightMain () {
     }
     // flag this so we only run it once and don't waste runtime
     mainflag = true;
+    console.log("1xt")
+
 }
 
 // change the max height of the alt theme divs
@@ -107,4 +114,5 @@ function maxHeightAlt () {
     }
     // flag this so we only run it once and don't waste runtime
     altflag = true;
+    console.log("2nd")
 }
