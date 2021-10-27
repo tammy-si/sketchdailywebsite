@@ -2,12 +2,14 @@
 let mainStorage = null;
 let altStorage = null;
 // flags to make sure that you only change max heights once
-mainflag = false;
-altflag = false;
+let mainflag = false;
+let altflag = false;
+// check if a picture has been enlarged
+var englarge = false;
 
  // when we hover over a picture
 function onHover(pic) {
-    // pic is the current image we are hovering over accessed by passing in the current image by using the "this" keyword
+    // pic is the current image we are hovering over accessed by passing in the current image by using the "this" keywordP
     console.log("Testing");
     if (mainflag == false) {
         maxHeightMain();
@@ -18,15 +20,27 @@ function onHover(pic) {
     // when the user clicks on an iamge
     pic.onclick = function () {
         document.getElementById("closeButton").style.display = "initial";
-        console.log(mainStorage);
+        enlarge = true;
         // loop through the storages to check if the imaged clicked on is a main theme image
         for(let i = 0; i < mainStorage.results.length; i++) {
-            console.log(mainStorage.results[i])
+            // console.log(mainStorage.results[i])
             // if it is a main theme image
             if (pic.id == mainStorage.results[i].id) {
                     
             }
         }
+    }
+}
+
+// code to close the 
+window.onload = function () {
+    document.getElementById("closeButton").onclick = function () {
+        console.log(enlarge)
+        if (enlarge == true) {
+            document.getElementById("closeButton").style.display = "none";
+            enlarge = false;
+        }
+        console.log(enlarge)
     }
 }
 
