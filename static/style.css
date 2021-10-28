@@ -104,6 +104,7 @@ Also set div's max dimensions according the images' width and height" */
 .theimgs:hover {
     opacity: 1;
     transform: scale(1.1);
+    cursor: pointer;
 }
 
 .imgdescript {
@@ -174,4 +175,8 @@ Also set div's max dimensions according the images' width and height" */
     top: 10px;
     right: 10px;
     display: none;
+}
+
+#closeButton:hover {
+    cursor: pointer;
 }

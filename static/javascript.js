@@ -23,24 +23,26 @@ function onHover(pic) {
         enlarge = true;
         // loop through the storages to check if the imaged clicked on is a main theme image
         for(let i = 0; i < mainStorage.results.length; i++) {
+            console.log("test")
             // console.log(mainStorage.results[i])
             // if it is a main theme image
             if (pic.id == mainStorage.results[i].id) {
-                    
+                console.log(mainStorage.results[i]);
+                document.getElementById("enlargedImg").src = mainStorage.results[i].urls["regular"];
             }
         }
     }
 }
 
-// code to close the 
+// code to close the enlarged image. 
 window.onload = function () {
+    // when someone clicks the close button on the top right
     document.getElementById("closeButton").onclick = function () {
-        console.log(enlarge)
         if (enlarge == true) {
             document.getElementById("closeButton").style.display = "none";
+            document.getElementById("enlargedImg").src = "";
             enlarge = false;
         }
-        console.log(enlarge)
     }
 }
 
