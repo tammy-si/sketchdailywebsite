@@ -49,8 +49,11 @@ window.onload = function () {
  // load the images from upsplash based on today's theme
  async function loadPictures (theme, main, upsplash_access_key) {
     console.log("Ran;lienf")
+    // remove special characters from the theme passed in so the query doesn't break
+    theme = theme.replace(/[^a-zA-Z ]/g, '');
+    console.log(theme)
     // connecting to the API and making a request for the API info
-    const response = await fetch('https://api.unsplash.com/search/photos?per_page=30&query=' + theme +'&client_id=' + upsplash_access_key)
+    const response = await fetch('https://api.unsplash.com/search/photos?per_page=30&query=' + theme +'&client_id=' + upsplash_access_key);
     // get what the server sent back (response) and then make it into json so we can read and parse
     data = await response.json()
     // for just in case Upsplash doesn't have any images for the themes
