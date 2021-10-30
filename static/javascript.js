@@ -19,7 +19,10 @@ function onHover(pic) {
     }
     // when the user clicks on an iamge
     pic.onclick = function () {
+        // add css to change to enlarge mode
         document.getElementById("closeButton").style.display = "initial";
+        document.getElementById("cover").classList.add("covered");
+        document.getElementById("enlargedImg").classList.add("enlarged");
         enlarge = true;
         // loop through the storages to check if the imaged clicked on is a main theme image
         for(let i = 0; i < mainStorage.results.length; i++) {
@@ -28,7 +31,7 @@ function onHover(pic) {
             // if it is a main theme image
             if (pic.id == mainStorage.results[i].id) {
                 console.log(mainStorage.results[i]);
-                document.getElementById("enlargedImg").src = mainStorage.results[i].urls["regular"];
+                document.getElementById("enlargedImg").src = mainStorage.results[i].urls["small"];
             }
         }
     }
@@ -39,8 +42,11 @@ window.onload = function () {
     // when someone clicks the close button on the top right
     document.getElementById("closeButton").onclick = function () {
         if (enlarge == true) {
+            // take away css to get out of enlarge more. 
             document.getElementById("closeButton").style.display = "none";
             document.getElementById("enlargedImg").src = "";
+            document.getElementById("enlargedImg").classList.remove("enlarged");
+            document.getElementById("cover").classList.remove("covered");
             enlarge = false;
         }
     }
