@@ -23,18 +23,27 @@ function onHover(pic) {
         document.getElementById("closeButton").style.display = "initial";
         document.getElementById("cover").classList.add("covered");
         document.getElementById("enlargedImg").classList.add("enlarged");
+        // make the image as large as possible, but still not large enough to exceed the viewport
+        // get the current size of the window
         enlarge = true;
         // loop through the storages to check if the imaged clicked on is a main theme image
         for(let i = 0; i < mainStorage.results.length; i++) {
-            console.log("test")
-            // console.log(mainStorage.results[i])
             // if it is a main theme image
             if (pic.id == mainStorage.results[i].id) {
-                console.log(mainStorage.results[i]);
                 document.getElementById("enlargedImg").src = mainStorage.results[i].urls["small"];
             }
         }
     }
+}
+
+// function to make the enlarged image bigger
+window.onresize = enlargeImage;
+function enlargeImage() {
+    // get the current screen size
+    var windowHeight = window.innerHeight;
+    var windowWidth = window.innerWidth;
+    console.log(windowHeight);
+    console.log(windowWidth);
 }
 
 // code to close the enlarged image. 
@@ -54,10 +63,8 @@ window.onload = function () {
 
  // load the images from upsplash based on today's theme
  async function loadPictures (theme, main, upsplash_access_key) {
-    console.log("Ran;lienf")
     // remove special characters from the theme passed in so the query doesn't break
     theme = theme.replace(/[^a-zA-Z ]/g, '');
-    console.log(theme)
     // connecting to the API and making a request for the API info
     const response = await fetch('https://api.unsplash.com/search/photos?per_page=30&query=' + theme +'&client_id=' + upsplash_access_key);
     // get what the server sent back (response) and then make it into json so we can read and parse
@@ -66,7 +73,6 @@ window.onload = function () {
     if (data.results.length == 0) {
         console.log(main ? "Upsplash has no images for today's main theme" : "Upsplash has no images for today's alternate theme");
     }
-    console.log("crickey")
     // go through all the images we've just scrapped from upsplash
     for (let i = 0; i < data.results.length; i ++){
         // for each image we make a new image tag and add it to the html. we make sure that we give each image tag the onmouseover attribute
@@ -106,11 +112,9 @@ window.onload = function () {
     }
     // storing info so we don't really have to request again. also calls functions to change the image div heights
     if (main == true) {
-        console.log("main ran")
         mainStorage = data;
     } 
     else {
-        console.log("alt ran")
         altStorage = data;
     }
 }
@@ -125,8 +129,6 @@ function maxHeightMain () {
     }
     // flag this so we only run it once and don't waste runtime
     mainflag = true;
-    console.log("1xt")
-
 }
 
 // change the max height of the alt theme divs
@@ -139,5 +141,4 @@ function maxHeightAlt () {
     }
     // flag this so we only run it once and don't waste runtime
     altflag = true;
-    console.log("2nd")
 }

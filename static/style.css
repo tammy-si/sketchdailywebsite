@@ -167,6 +167,7 @@ Also set div's max dimensions according the images' width and height" */
 }
 
 /* styling for when user clicks on an image */
+/* close button css for when user clicks on an image */
 #closeButton {
     position: fixed;
     background-color: initial;
@@ -182,6 +183,7 @@ Also set div's max dimensions according the images' width and height" */
     cursor: pointer;
 }
 
+/* image css for when user clicks on an image */
 .enlarged {
     position: fixed;
     left: 50%;
@@ -190,6 +192,7 @@ Also set div's max dimensions according the images' width and height" */
     z-index: 2;
 }
 
+/* make the background dark for when user clicks on an image */
 .covered {
     position: fixed;
     width: 100%;
