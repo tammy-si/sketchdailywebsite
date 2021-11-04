@@ -46,27 +46,19 @@ function enlargeImage() {
     var oldHeight = document.getElementById("enlargedImg").clientHeight;
     var oldWidth = document.getElementById("enlargedImg").clientWidth;
     // goal is to scale the image, but keep the new Image proportional to the old image, like (oldLength/oldHeight) = (newLength/newHeight)
-    // call a recursive function to get new Length and new Height of the image
-    var newDimensions = getNewDimensions(windowHeight, windowWidth, oldHeight, oldWidth, (0,0));
-    console.log(newDimensions);
-}
-
-// recursive function to try to get new Height and Length of the image.
-// wH is the windowHeight, wW is window Width, oH is old Height, oW is the old width, 
-function getNewDimensions(wH, wW, oH, oW, newDimTuple) {
-    var newHeight, newWidth = newDimTuple;
-    // tried to do optimization from calculus to get the dimensions that cover the most area possible
-    newWidth =  ((1.8 * oH) + (1.8 * oW)) / 4;
-    newHeight = (oH / oL)(newWidth);
+    // use optimization from Calculus to try and find the best dimensions to cover the most area possible 
+    newWidth =  ((oldHeight) + (oldWidth)) / 4;
+    newHeight = (oldHeight / oldWidth) * (newWidth);
     // basecase
     // make sure the image isn't bigger than the window, and make sure the new dimensions are proportional to the old image dimensions
-    if ((newHeight < wH) && (newWidth < wW) && ((oL / oH) == (newLength / newHeight))) {
-        return (newHeight, newWidth);
-    // if the new dimensions don't fit the window screen, or the new dimensions aren't proportional to the old dimensions, 
-    // call the getNewDimenions again, but now make the window "smaller" so that we can get small dimensions for the new image
-    } else {
-        return getNewDimensions(wH,wW, oH, oW, (newHeight, newWidth));
-    }   
+    while ((newHeight >= windowHeight * 0.9) || (newWidth >= 0.9 * windowWidth)) {
+        // if the image is too big scale the image down
+        newHeight = newHeight * 0.9;
+        newWidth = newWidth * 0.9;
+    }
+    // get the ratio that the image dimensions has increased and scale the old image by that ratio
+    document.getElementById("enlargedImg").style.maxHeight = newHeight + "px";
+    document.getElementById("enlargedImg").style.maxWidth = newWidth + "px";
 }
 
 // code to close the enlarged image. 
