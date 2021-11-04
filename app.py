@@ -39,6 +39,7 @@ def today():
         # getting the alternate theme by getting the post's body
         body = post.selftext.split(": ")
         alternatetheme = body[1].split("\r")[0]
+        alternatetheme = alternatetheme.split("\n")[0]
 
     # getting the reference pictures
     return render_template("theme.html", today = today, maintheme = theme, alttheme = alternatetheme, upsplash_access=config["UPSPLASH_ACCESS_KEY"])
