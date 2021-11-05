@@ -23,6 +23,8 @@ function onHover(pic) {
         document.getElementById("closeButton").style.display = "initial";
         document.getElementById("cover").classList.add("covered");
         document.getElementById("enlargedImg").classList.add("enlarged");
+        document.getElementById("enlargedImg").style.display = "initial";
+        enlargeImage(pic) 
         // make the image as large as possible, but still not large enough to exceed the viewport
         // get the current size of the window
         enlarge = true;
@@ -37,24 +39,32 @@ function onHover(pic) {
 }
 
 // function to make the enlarged image bigger
-window.onresize = enlargeImage;
-function enlargeImage() {
+function enlargeImage(originalPic) {
     // get the current screen size
     var windowHeight = window.innerHeight;
     var windowWidth = window.innerWidth;
-    // get the old height of the image we're supposed to enlarge
-    var oldHeight = document.getElementById("enlargedImg").clientHeight;
-    var oldWidth = document.getElementById("enlargedImg").clientWidth;
+    // get the old height the image we're supposed to enlarge
+    var oldHeight = originalPic.clientHeight;
+    var oldWidth = originalPic.clientWidth;
     // goal is to scale the image, but keep the new Image proportional to the old image, like (oldLength/oldHeight) = (newLength/newHeight)
     // use optimization from Calculus to try and find the best dimensions to cover the most area possible 
-    newWidth =  ((oldHeight) + (oldWidth)) / 4;
-    newHeight = (oldHeight / oldWidth) * (newWidth);
+    console.log("Old Heights:" + oldHeight);
+    console.log("Old Width:" + oldWidth);
+    if (oldHeight > oldWidth) {
+        newHeight = ((oldHeight + oldWidth) * (oldHeight / oldWidth)) / 2;
+        newWidth = (oldWidth / oldHeight) * (newHeight);
+    }
+    else {
+        newWidth = ((oldHeight + oldWidth) * (oldWidth / oldHeight)) / 2;
+        newHeight = (oldHeight / oldWidth) * (newWidth);
+    }
+    console.log("Tester: " + newHeight, newWidth);
     // basecase
     // make sure the image isn't bigger than the window, and make sure the new dimensions are proportional to the old image dimensions
-    while ((newHeight >= windowHeight * 0.9) || (newWidth >= 0.9 * windowWidth)) {
+    while ((newHeight >= windowHeight) || (newWidth >= windowWidth)) {
         // if the image is too big scale the image down
-        newHeight = newHeight * 0.9;
-        newWidth = newWidth * 0.9;
+        newHeight = newHeight * 0.95;
+        newWidth = newWidth * 0.95;
     }
     // get the ratio that the image dimensions has increased and scale the old image by that ratio
     document.getElementById("enlargedImg").style.maxHeight = newHeight + "px";
@@ -70,6 +80,7 @@ window.onload = function () {
             document.getElementById("closeButton").style.display = "none";
             document.getElementById("enlargedImg").src = "";
             document.getElementById("enlargedImg").classList.remove("enlarged");
+            document.getElementById("enlargedImg").style.display = "none";
             document.getElementById("cover").classList.remove("covered");
             enlarge = false;
         }
