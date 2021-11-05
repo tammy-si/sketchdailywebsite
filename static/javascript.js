@@ -50,21 +50,15 @@ function enlargeImage(originalPic) {
     // use optimization from Calculus to try and find the best dimensions to cover the most area possible 
     console.log("Old Heights:" + oldHeight);
     console.log("Old Width:" + oldWidth);
-    if (oldHeight > oldWidth) {
-        newHeight = ((oldHeight + oldWidth) * (oldHeight / oldWidth)) / 2;
-        newWidth = (oldWidth / oldHeight) * (newHeight);
-    }
-    else {
-        newWidth = ((oldHeight + oldWidth) * (oldWidth / oldHeight)) / 2;
-        newHeight = (oldHeight / oldWidth) * (newWidth);
-    }
+    newHeight = ((oldWidth / oldHeight) * (2 * windowWidth + 2 * windowHeight)) / 2;
+    newWidth = (oldWidth / oldHeight) * (newHeight);
     console.log("Tester: " + newHeight, newWidth);
     // basecase
     // make sure the image isn't bigger than the window, and make sure the new dimensions are proportional to the old image dimensions
     while ((newHeight >= windowHeight) || (newWidth >= windowWidth)) {
         // if the image is too big scale the image down
-        newHeight = newHeight * 0.95;
-        newWidth = newWidth * 0.95;
+        newHeight = newHeight * 0.97;
+        newWidth = newWidth * 0.97;
     }
     // get the ratio that the image dimensions has increased and scale the old image by that ratio
     document.getElementById("enlargedImg").style.maxHeight = newHeight + "px";
