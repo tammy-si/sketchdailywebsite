@@ -35,6 +35,13 @@ function onHover(pic) {
                 document.getElementById("enlargedImg").src = mainStorage.results[i].urls["small"];
             }
         }
+        // loop through the storages to check if the imaged clicked on is an alt theme image
+        for(let i = 0; i < altStorage.results.length; i++) {
+            // if it is a alt theme image
+            if (pic.id == altStorage.results[i].id) {
+                document.getElementById("enlargedImg").src = altStorage.results[i].urls["small"];
+            }
+        }
     }
 }
 
@@ -47,19 +54,26 @@ function enlargeImage(originalPic) {
     var oldHeight = originalPic.clientHeight;
     var oldWidth = originalPic.clientWidth;
     // goal is to scale the image, but keep the new Image proportional to the old image, like (oldLength/oldHeight) = (newLength/newHeight)
-    // use optimization from Calculus to try and find the best dimensions to cover the most area possible 
+    // try to Suse optimization from Calculus to try and find the best dimensions to cover the most area possible 
     console.log("Old Heights:" + oldHeight);
     console.log("Old Width:" + oldWidth);
-    newHeight = ((oldWidth / oldHeight) * (2 * windowWidth + 2 * windowHeight)) / 2;
+    newHeight = ((2 * windowWidth + 2 * windowHeight)) / 2;
     newWidth = (oldWidth / oldHeight) * (newHeight);
-    console.log("Tester: " + newHeight, newWidth);
-    // basecase
+    console.log("New height: " + newHeight);
+    console.log("New width: " + newWidth);
+    console.log("Window height: " + windowHeight);
+    console.log("Window width: " + windowWidth);
     // make sure the image isn't bigger than the window, and make sure the new dimensions are proportional to the old image dimensions
     while ((newHeight >= windowHeight) || (newWidth >= windowWidth)) {
         // if the image is too big scale the image down
         newHeight = newHeight * 0.97;
         newWidth = newWidth * 0.97;
     }
+    console.log("after restrict")
+    console.log("New height: " + newHeight);
+    console.log("New width: " + newWidth);
+    console.log("Window height: " + windowHeight);
+    console.log("Window width: " + windowWidth);
     // get the ratio that the image dimensions has increased and scale the old image by that ratio
     document.getElementById("enlargedImg").style.maxHeight = newHeight + "px";
     document.getElementById("enlargedImg").style.maxWidth = newWidth + "px";
