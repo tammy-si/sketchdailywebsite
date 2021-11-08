@@ -41,7 +41,7 @@ header {
 }
 
 .nav_links li a:hover {
-    color: #0088a9
+    color: #0088a9;
 }
 
 /* CSS for information on the about page */
@@ -74,10 +74,29 @@ header {
 
 /* CSS for the theme page */
 .headings {
-    display: block;
-    width: 100%;
+    display: inline-table;
     text-align: center;
+    width: 100%;
 }
+
+.randomButton {
+    float: right;
+    cursor: pointer;
+    padding: 2px;
+    margin-right: 3px;
+    margin-bottom: 10px;
+}
+
+.randomButton p{
+    float: left;
+    margin-top: 10px;
+}
+
+.randomButton:hover {
+    filter: grayscale(100%);
+    color: #0088a9;
+}
+
 .mainthemepics, .altthemepics 
 {
     column-gap: 0px;
@@ -181,6 +200,7 @@ Also set div's max dimensions according the images' width and height" */
 
 #closeButton:hover {
     cursor: pointer;
+    filter: brightness(0) invert(1);
 }
 
 /* image css for when user clicks on an image */
@@ -207,3 +227,4 @@ Also set div's max dimensions according the images' width and height" */
     height: 100%;
     object-fit: cover;
 }
+
