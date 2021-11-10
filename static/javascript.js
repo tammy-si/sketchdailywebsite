@@ -10,7 +10,6 @@ var englarge = false;
  // when we hover over a picture
 function onHover(pic) {
     // pic is the current image we are hovering over accessed by passing in the current image by using the "this" keywordP
-    console.log("Testing");
     if (mainflag == false) {
         maxHeightMain();
     }
@@ -19,29 +18,27 @@ function onHover(pic) {
     }
     // when the user clicks on an iamge
     pic.onclick = function () {
-        // add css to change to enlarge mode
-        document.getElementById("closeButton").style.display = "initial";
-        document.getElementById("cover").classList.add("covered");
-        document.getElementById("enlargedImg").classList.add("enlarged");
-        document.getElementById("enlargedImg").style.display = "initial";
-        enlargeImage(pic);
-        // make the image as large as possible, but still not large enough to exceed the viewport
-        // get the current size of the window
-        enlarge = true;
         // loop through the storages to check if the imaged clicked on is a main theme image
         for(let i = 0; i < mainStorage.results.length; i++) {
-            // if it is a main theme image
+            // if it is a main theme image set the image as the image to be enlarged
             if (pic.id == mainStorage.results[i].id) {
                 document.getElementById("enlargedImg").src = mainStorage.results[i].urls["regular"];
             }
         }
         // loop through the storages to check if the imaged clicked on is an alt theme image
         for(let i = 0; i < altStorage.results.length; i++) {
-            // if it is a alt theme image
+            // if it is a alt theme image set the image as the image to be enlarged
             if (pic.id == altStorage.results[i].id) {
                 document.getElementById("enlargedImg").src = altStorage.results[i].urls["regular"];
             }
         }
+        // add css to change to enlarge mode
+        document.getElementById("closeButton").style.display = "initial";
+        document.getElementById("cover").classList.add("covered");
+        document.getElementById("enlargedImg").classList.add("enlarged");
+        document.getElementById("enlargedImg").style.display = "initial";
+        enlarge = true;
+        enlargeImage(pic);
     }
 }
 
@@ -68,12 +65,15 @@ function enlargeImage(originalPic) {
     document.getElementById("enlargedImg").style.maxWidth = newWidth + "px";
 }
 
-// code to close the enlarged image. 
+// hold event handlers for buttons that work after the window has loaded (such as the close enlarge mode button and random button)
 window.onload = function () {
-    // when someone clicks the close button on the top right
+
+    // when someone clicks the close button on the top right in the enlarged mode
     document.getElementById("closeButton").onclick = function () {
+        console.log(enlarge)
+        // check if an image is currently enlarge and the user is in enlarge mode
         if (enlarge == true) {
-            // take away css to get out of enlarge more. 
+            // take away css to get out of enlarge mode. 
             document.getElementById("closeButton").style.display = "none";
             document.getElementById("enlargedImg").src = "";
             document.getElementById("enlargedImg").classList.remove("enlarged");
@@ -82,7 +82,45 @@ window.onload = function () {
             enlarge = false;
         }
     }
+
+    // main theme random button
+    document.getElementById("mainRandomButton").onclick = function() {
+        // max is the total amount of main theme images we have minus 1.
+        var max = mainStorage.results.length - 1;
+        // number is random integer we get. We then use the number to index the main Storage to get a random image. 
+        // set the random image to be enlarged, by putting the newly picked image into the enlarge div, enlarging the image with enlargeImage(), and adding css for the enlarge mode.
+        var number = Math.floor(Math.random() * ((max + 1)));
+        document.getElementById("enlargedImg").src = mainStorage.results[number].urls["regular"];
+        enlargeImage(document.getElementById(mainStorage.results[number].id));
+        // add css to change to enlarge mode
+        document.getElementById("closeButton").style.display = "initial";
+        document.getElementById("cover").classList.add("covered");
+        document.getElementById("enlargedImg").classList.add("enlarged");
+        document.getElementById("enlargedImg").style.display = "initial";
+        enlarge = true;
+    }
+
+    //alternate theme random button
+    document.getElementById("altRandomButton").onclick = function() {
+        // max is the total amount of alternate theme images we have minus 1.
+        var max = altStorage.results.length - 1;
+        // number is random integer we get. We then use the number to index the alternate Storage to get a random image. 
+        // set the random image to be enlarged, by putting the newly picked image into the enlarge div, enlarging the image with enlargeImage(), and adding css for the enlarge mode.
+        var number = Math.floor(Math.random() * ((max + 1)));
+        document.getElementById("enlargedImg").src = altStorage.results[number].urls["regular"];
+        enlargeImage(document.getElementById(altStorage.results[number].id));
+        // add css to change to enlarge mode
+        document.getElementById("closeButton").style.display = "initial";
+        document.getElementById("cover").classList.add("covered");
+        document.getElementById("enlargedImg").classList.add("enlarged");
+        document.getElementById("enlargedImg").style.display = "initial";
+        enlarge = true;
+    }
 }
+
+
+
+// code for the random buttons
 
  // load the images from upsplash based on today's theme
  async function loadPictures (theme, main, upsplash_access_key) {

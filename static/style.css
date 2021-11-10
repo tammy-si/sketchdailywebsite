@@ -90,6 +90,7 @@ header {
 .randomButton p{
     float: left;
     margin-top: 10px;
+    user-select: none;
 }
 
 .randomButton:hover {
@@ -226,5 +227,6 @@ Also set div's max dimensions according the images' width and height" */
     width : 100%;
     height: 100%;
     object-fit: cover;
+    background-color:rgba(0,0,0, 0.6);
 }
 
