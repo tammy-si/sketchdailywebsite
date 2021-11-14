@@ -100,7 +100,7 @@ window.onload = function () {
         enlarge = true;
     }
 
-    //alternate theme random button
+    // alternate theme random button
     document.getElementById("altRandomButton").onclick = function() {
         // max is the total amount of alternate theme images we have minus 1.
         var max = altStorage.results.length - 1;
@@ -117,10 +117,6 @@ window.onload = function () {
         enlarge = true;
     }
 }
-
-
-
-// code for the random buttons
 
  // load the images from upsplash based on today's theme
  async function loadPictures (theme, main, upsplash_access_key) {
