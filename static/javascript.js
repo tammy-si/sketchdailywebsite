@@ -199,3 +199,15 @@ function maxHeightAlt () {
     // flag this so we only run it once and don't waste runtime
     altflag = true;
 }
+
+// code to make the navigation header look good even if the table on past theme page is overflowing
+window.onresize = fixHeader;
+window.addEventListener('scroll', fixHeader)
+function fixHeader() {
+    try {
+        document.getElementById("navHeader").style.width = document.getElementById("pastweekTable").offsetWidth + "px";
+    }
+    catch {
+        window.removeEventListener('scroll', fixHeader);
+    }
+}
