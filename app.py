@@ -68,6 +68,22 @@ def pastweek():
     # reverse the arrays so that the current day/today is at the end of the array.
     week = week[::-1]
     weekdays = weekdays[::-1]
-    print(week)
-    print(weekdays)
-    return render_template("pastweek.html", week = week, weekdays = weekdays)
+
+    # list to hold the themes of the past 7 days as tuples. Each element of the list should be the main theme and alternate theme for that date.
+    # list goes from today -> yesterday -> onwards
+    themeList = []
+    # get the last 7 in sketchdaily because they're the theme for the last 7 days
+    for post in reddit.subreddit("SketchDaily").hot(limit=7):
+        # get the main theme
+        title = post.title.split("- ")
+        print(title)
+        theme = title[-1]
+        # getting the alternate theme by getting the post's body
+        body = post.selftext.split(": ")
+        alternatetheme = body[1].split("\r")[0]
+        alternatetheme = alternatetheme.split("\n")[0]
+        themeList.append((theme, alternatetheme))
+    # reverse the theme list so that we have today's theme at the end
+    themeList = themeList[::-1]
+    print(themeList)
+    return render_template("pastweek.html", week = week, weekdays = weekdays, themeList = themeList)
