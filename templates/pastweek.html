@@ -1,0 +1,30 @@
+{% extends "layout.html" %}
+
+{% block title %}
+Past Week Themes
+{% endblock %}
+
+{% block main %}
+<h1>Themes for the Past Week</h1>
+<table id = "pastweekTable">
+    <tr>
+    {% for i in range(7) %}
+        {% if i == 6 %}
+            <th style="background-color: orange;">Today <br> {{ weekdays[i] }} <br> {{ week[i] }}</th>
+        {% else %}
+            <th><br>{{ weekdays[i] }} <br> {{ week[i] }}</th>
+        {% endif %}
+    {% endfor %}
+    </tr>
+    <tr>
+    {% for i in range(7) %}
+        <td>Main theme: <br> {{ themeList[i][0] }}</td>
+    {% endfor %}
+    </tr>  
+    <tr>
+        {% for i in range(7) %}
+            <td>Alternate theme: <br> {{ themeList[i][1] }}</td>
+        {% endfor %}
+        </tr>  
+</table>
+{% endblock %}
