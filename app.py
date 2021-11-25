@@ -37,7 +37,6 @@ def today():
     for post in reddit.subreddit("SketchDaily").hot(limit=1):
         # get the main theme
         title = post.title.split("- ")
-        print(title)
         theme = title[-1]
         # getting the alternate theme by getting the post's body
         body = post.selftext.split(": ")
@@ -77,7 +76,6 @@ def pastweek():
         for post in reddit.subreddit("SketchDaily").hot(limit=7):
             # get the main theme
             title = post.title.split("- ")
-            print(title)
             theme = title[-1]
             # getting the alternate theme by getting the post's body
             body = post.selftext.split(": ")
@@ -86,9 +84,10 @@ def pastweek():
             themeList.append((theme, alternatetheme))
         # reverse the theme list so that we have today's theme at the end
         themeList = themeList[::-1]
-        print(themeList)
         return render_template("pastweek.html", week = week, weekdays = weekdays, themeList = themeList)
     elif request.method == 'POST':
-        mainTheme = request.form.get("mainThemeChoice")
-        altTheme = request.form.get("altThemeChoice")
-        return f"Main theme: {mainTheme} Alt theme: {altTheme}"
+        mainThemeChoice = request.form.get("mainThemeChoice")
+        altThemeChoice = request.form.get("altThemeChoice")
+        dateChoice = request.form.get("dateChoice")
+        print(dateChoice)
+        return render_template("pastweektheme.html", mainThemeChoice = mainThemeChoice, altThemeChoice = altThemeChoice, dateChoice = dateChoice, upsplash_access=config["UPSPLASH_ACCESS_KEY"])

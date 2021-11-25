@@ -9,7 +9,7 @@ var englarge = false;
 
  // when we hover over a picture
 function onHover(pic) {
-    // pic is the current image we are hovering over accessed by passing in the current image by using the "this" keywordP
+    // pic is the current image we are hovering over accessed by passing in the current image by using the "this" keyword
     if (mainflag == false) {
         maxHeightMain();
     }

@@ -10,26 +10,27 @@ Past Week Themes
     <tr>
     {% for i in range(7) %}
         {% if i == 6 %}
-            <th style="background-color: orange;" id = 'day{{ i }}'>Today <br> {{ weekdays[i] }} <br> {{ week[i] }}</th>
+            <th style="background-color: orange;"'>Today <br> {{ weekdays[i] }} <br> {{ week[i] }}</th>
         {% else %}
-            <th id = 'day{{ i }}'><br>{{ weekdays[i] }} <br> {{ week[i] }}</th>
+            <th><br>{{ weekdays[i] }} <br> {{ week[i] }}</th>
         {% endif %}
     {% endfor %}
-    </tr>S
+    </tr>
     <tr>
     {% for i in range(7) %}
-        <td id = 'mainTheme{{ i }}'>Main theme: <br> {{ themeList[i][0] }}</td>
+        <td>Main theme: <br> {{ themeList[i][0] }}</td>
     {% endfor %}
     </tr>  
     <tr>
         {% for i in range(7) %}
-            <td id = 'altTheme{{ i }}'>Alternate theme: <br> {{ themeList[i][1] }}</td>
+            <td>Alternate theme: <br> {{ themeList[i][1] }}</td>
         {% endfor %}
     </tr>  
     <tr>
         {% for j in range(7) %}
             <td>
                 <form action = "/pastweek" method = "POST">
+                    <input type =  "text" name = "dateChoice" style = "display:none;" value = "{{ week[j] }}">
                     <input type = "text" name = "mainThemeChoice" style = "display: none;" value = "{{ themeList[j][0] }}">
                     <input type = "text"  name = "altThemeChoice" style = "display: none;" value = "{{ themeList[j][1] }}">
                     <input type = "submit" value = "Choose these themes">
