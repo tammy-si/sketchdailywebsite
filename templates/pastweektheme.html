@@ -1,0 +1,55 @@
+{% extends "layout.html" %}
+
+{% block tilte %} 
+    Chosen Past Week Themes
+{% endblock %}
+
+{% block main %}
+<div class="themediv">
+    <div class="headings">
+        <h1>Here are the theme's for the date {{ dateChoice }}</h1>
+        <h2>The main theme for that day is {{ mainThemeChoice }}.</h2>
+        <div id = "mainRandomButton" class = "randomButton">
+            <p>Get a random<br> main theme picture</p>
+            <img src="https://img.icons8.com/external-kiranshastry-lineal-kiranshastry/64/000000/external-random-interface-kiranshastry-lineal-kiranshastry.png"/>
+        </div>
+    </div>
+    <div class = "enlargediv">
+        <div id = "cover"></div>
+        <img id = "closeButton" src = "https://lh3.googleusercontent.com/gupmqgL-ChT426pt51mxRwgXKxvq1gIYQ8uxLFYCOEtLOjdiNY1rlZ7Yb_0AnUNUkKZz4P2t9fuiBrouBF_SnWE1OhbU8P2vC7rDZizcAXf67_3YPvOjIYuvwUv3hxuZ3jOOkjRD=s200-p-k?source=screenshot.guru">
+        <img id = "enlargedImg">
+    </div>
+    <div class="mainthemepics">
+    </div>
+    <div class="headings">
+        <h2>If you don't like the main theme, there's an alternative theme! </h2>
+        <p>The alternative theme for that day is {{ altThemeChoice }}</p>
+        <div id = "altRandomButton" class = "randomButton">
+            <p>Get a random <br> alternate theme picture</p>
+            <img src="https://img.icons8.com/external-kiranshastry-lineal-kiranshastry/64/000000/external-random-interface-kiranshastry-lineal-kiranshastry.png"/>
+        </div>
+    </div>
+    <div class="altthemepics">
+    </div>
+</div>
+<footer>
+    <div>Icons made by <a href="https://www.flaticon.com/authors/kiranshastry" title="Kiranshastry">Kiranshastry</a> from <a href="https://www.flaticon.com/" title="Flaticon">www.flaticon.com</a></div>
+</footer>
+<script>
+    // calling the functions that losad the pictures.
+    try {
+        console.log("tester");
+        loadPictures('{{ mainThemeChoice }}', true, '{{ upsplash_access }}');
+    }
+    catch(err) {
+            console.error(error);
+    }
+    try {
+        console.log("test");
+        loadPictures('{{ altThemeChoice }}', false, '{{ upsplash_access }}');
+    }
+    catch(error) {
+        console.error(error);
+    }
+</script>
+{% endblock %}
