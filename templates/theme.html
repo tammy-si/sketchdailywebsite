@@ -38,14 +38,12 @@
 <script>
     // calling the functions that losad the pictures.
     try {
-        console.log("tester");
         loadPictures('{{ maintheme }}', true, '{{ upsplash_access }}');
     }
     catch(err) {
             console.error(error);
     }
     try {
-        console.log("test");
         loadPictures('{{ alttheme }}', false, '{{ upsplash_access }}');
     }
     catch(error) {

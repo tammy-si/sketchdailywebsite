@@ -120,12 +120,15 @@ window.onload = function () {
 
  // load the images from upsplash based on today's theme
  async function loadPictures (theme, main, upsplash_access_key) {
+    console.log("test")
     // remove special characters from the theme passed in so the query doesn't break
     theme = theme.replace(/[^a-zA-Z ]/g, '');
+    // for get multiple pages of images
     // connecting to the API and making a request for the API info
     const response = await fetch('https://api.unsplash.com/search/photos?per_page=30&query=' + theme +'&client_id=' + upsplash_access_key);
     // get what the server sent back (response) and then make it into json so we can read and parse
     data = await response.json()
+    console.log(data)
     // for just in case Upsplash doesn't have any images for the themes
     if (data.results.length == 0) {
         console.log(main ? "Upsplash has no images for today's main theme" : "Upsplash has no images for today's alternate theme");
@@ -167,7 +170,7 @@ window.onload = function () {
         photographer = currentpic.user;
         document.getElementById(currentpic.id + "description").innerHTML = `Photo by <a href = '${photographer.links.html}?utm_source=sketchdailywebapp&utm_medium=referral'> ${photographer.name} </a> from <a href="https://unsplash.com/?utm_source=sketchdailywebapp&utm_medium=referral"> Upsplash`;
     }
-    // storing info so we don't really have to request again. also calls functions to change the image div heights
+    // storing info so we don't really have to request again.
     if (main == true) {
         mainStorage = data;
     } 
