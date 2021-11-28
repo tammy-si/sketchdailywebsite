@@ -5,8 +5,10 @@ import praw
 
 app = Flask(__name__)
 
+# access the config var values (for heroku deployment)
 # config is like the connection to the .env files for the secret keys and stuff
-config = dotenv_values(".env")
+config = S3Connection(os.environ['REDDIT_CLIENT_ID'], os.environ['REDDIT_SECRET'], os.environ['REDDIT_USER_AGENT'], os.environ['UPSPLASH_ACCESS_KEY'])
+
 # authenticating for praw
 reddit = praw.Reddit(
     client_id = config["REDDIT_CLIENT_ID"],
