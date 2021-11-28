@@ -11,7 +11,6 @@ MarkupSafe==2.0.1
 nodeenv==1.6.0
 praw==7.4.0
 prawcore==2.3.0
-python==3.8.10
 python-dotenv==0.19.0
 requests==2.26.0
 update-checker==0.18.0
