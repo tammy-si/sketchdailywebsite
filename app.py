@@ -7,16 +7,13 @@ import praw
 app = Flask(__name__)
 
 #  connection to the environment variable for the secret keys and stuff
-app.config['REDDIT_CLIENT_ID'] = environ.get('REDDIT_CLIENT_ID')
-app.config['REDDIT_SECRET'] =  environ.get('REDDIT_CLIENT_ID')
-app.config['REDDIT_USER_AGENT'] = environ.get('REDDIT_SECRET')
-app.config['UPSPLASH_ACCESS_KEY'] =  environ.get('UPSPLASH_ACCESS_KEY')
+config = dotenv_values(".env")
 
 # authenticating for praw
 reddit = praw.Reddit(
-    client_id = app.config['REDDIT_CLIENT_ID'],
-    client_secret = app.config['REDDIT_SECRET'],
-    user_agent = app.config['REDDIT_USER_AGENT']
+    client_id = environ.get("REDDIT_CLIENT_ID"),
+    client_secret = environ.get('REDDIT_SECRET'),
+    user_agent = environ.get('REDDIT_USER_AGENT')
 )
 
 
@@ -49,7 +46,7 @@ def today():
         alternatetheme = alternatetheme.split("\n")[0]
 
     # getting the reference pictures
-    return render_template("theme.html", today = today, maintheme = theme, alttheme = alternatetheme, upsplash_access=app.config['UPSPLASH_ACCESS_KEY'])
+    return render_template("theme.html", today = today, maintheme = theme, alttheme = alternatetheme, upsplash_access=environ.get('UPSPLASH_ACCESS_KEY'))
 
 # route for the past week page
 @app.route("/pastweek", methods = ['GET', 'POST'])
@@ -95,4 +92,4 @@ def pastweek():
         altThemeChoice = request.form.get("altThemeChoice")
         dateChoice = request.form.get("dateChoice")
         print(dateChoice)
-        return render_template("pastweektheme.html", mainThemeChoice = mainThemeChoice, altThemeChoice = altThemeChoice, dateChoice = dateChoice, upsplash_access=app.config['UPSPLASH_ACCESS_KEY'])
+        return render_template("pastweektheme.html", mainThemeChoice = mainThemeChoice, altThemeChoice = altThemeChoice, dateChoice = dateChoice, upsplash_access=environ.get('UPSPLASH_ACCESS_KEY'))
