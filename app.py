@@ -1,20 +1,22 @@
 from flask import Flask, render_template, request
 from datetime import date, timedelta
 from dotenv import load_dotenv, dotenv_values
-from boto.s3.connection import S3Connection
+from os import environ
 import praw
 
 app = Flask(__name__)
 
-# access the config var values (for heroku deployment)
-# config is like the connection to the .env files for the secret keys and stuff
-config = S3Connection(os.environ['REDDIT_CLIENT_ID'], os.environ['REDDIT_SECRET'], os.environ['REDDIT_USER_AGENT'], os.environ['UPSPLASH_ACCESS_KEY'])
+#  connection to the environment variable for the secret keys and stuff
+app.config['REDDIT_CLIENT_ID'] = environ.get('REDDIT_CLIENT_ID')
+app.config['REDDIT_SECRET'] =  environ.get('REDDIT_CLIENT_ID')
+app.config['REDDIT_USER_AGENT'] = environ.get('REDDIT_SECRET')
+app.config['UPSPLASH_ACCESS_KEY'] =  environ.get('UPSPLASH_ACCESS_KEY')
 
 # authenticating for praw
 reddit = praw.Reddit(
-    client_id = config["REDDIT_CLIENT_ID"],
-    client_secret = config["REDDIT_SECRET"],
-    user_agent = config["REDDIT_USER_AGENT"]
+    client_id = app.config['REDDIT_CLIENT_ID'],
+    client_secret = app.config['REDDIT_SECRET'],
+    user_agent = app.config['REDDIT_USER_AGENT']
 )
 
 
@@ -47,7 +49,7 @@ def today():
         alternatetheme = alternatetheme.split("\n")[0]
 
     # getting the reference pictures
-    return render_template("theme.html", today = today, maintheme = theme, alttheme = alternatetheme, upsplash_access=config["UPSPLASH_ACCESS_KEY"])
+    return render_template("theme.html", today = today, maintheme = theme, alttheme = alternatetheme, upsplash_access=app.config['UPSPLASH_ACCESS_KEY'])
 
 # route for the past week page
 @app.route("/pastweek", methods = ['GET', 'POST'])
@@ -93,4 +95,4 @@ def pastweek():
         altThemeChoice = request.form.get("altThemeChoice")
         dateChoice = request.form.get("dateChoice")
         print(dateChoice)
-        return render_template("pastweektheme.html", mainThemeChoice = mainThemeChoice, altThemeChoice = altThemeChoice, dateChoice = dateChoice, upsplash_access=config["UPSPLASH_ACCESS_KEY"])
+        return render_template("pastweektheme.html", mainThemeChoice = mainThemeChoice, altThemeChoice = altThemeChoice, dateChoice = dateChoice, upsplash_access=app.config['UPSPLASH_ACCESS_KEY'])
