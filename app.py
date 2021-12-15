@@ -46,7 +46,7 @@ def today():
         alternatetheme = alternatetheme.split("\n")[0]
 
     # getting the reference pictures
-    return render_template("theme.html", today = today, maintheme = theme, alttheme = alternatetheme, upsplash_access=environ.get('UPSPLASH_ACCESS_KEY'))
+    return render_template("theme.html", today = today, maintheme = theme, alttheme = alternatetheme, upsplash_access = environ.get('UPSPLASH_ACCESS_KEY'))
 
 # route for the past week page
 @app.route("/pastweek", methods = ['GET', 'POST'])
@@ -92,4 +92,4 @@ def pastweek():
         altThemeChoice = request.form.get("altThemeChoice")
         dateChoice = request.form.get("dateChoice")
         print(dateChoice)
-        return render_template("pastweektheme.html", mainThemeChoice = mainThemeChoice, altThemeChoice = altThemeChoice, dateChoice = dateChoice, upsplash_access=environ.get('UPSPLASH_ACCESS_KEY'))
+        return render_template("pastweektheme.html", mainThemeChoice = mainThemeChoice, altThemeChoice = altThemeChoice, dateChoice = dateChoice, upsplash_access = environ.get('UPSPLASH_ACCESS_KEY'))

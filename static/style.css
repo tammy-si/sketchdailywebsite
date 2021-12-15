@@ -249,3 +249,21 @@ table {
 tr {
     width: 100%;
 }
+
+/* css for the timer */
+.timer {
+    right: 0;
+    position: fixed;
+    writing-mode: vertical-rl;
+    transform:scale(-1);
+    z-index: 3;
+    background-color: black;
+    color: white;
+    padding: 30px 2px;
+    top: 10%;
+}
+
+.timer h1 {
+    background-color: black;
+}
+
