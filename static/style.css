@@ -252,7 +252,7 @@ tr {
 
 /* css for the timer */
 .timer {
-    right: 0;
+    right: -252px;
     position: fixed;
     writing-mode: vertical-rl;
     transform:scale(-1);
@@ -261,9 +261,29 @@ tr {
     color: white;
     padding: 30px 2px;
     top: 10%;
+    transition: all 0.5s ease;
+}
+
+.timer:hover {
+    right: 0;
+}
+
+.timerInner {
+    width: 250px;
+    background-color: black;
+    user-select: none;
+    transform: rotate(180deg);
 }
 
 .timer h1 {
     background-color: black;
+    user-select: none;
 }
 
+.timer input {
+    height: 50px;
+}
+
+.timerButtons{
+    display: inline-block;
+}
