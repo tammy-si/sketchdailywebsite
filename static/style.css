@@ -273,6 +273,9 @@ tr {
     background-color: black;
     user-select: none;
     transform: rotate(180deg);
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 
 .timer h1 {
@@ -281,9 +284,17 @@ tr {
 }
 
 .timer input {
-    height: 50px;
+    height: 55px;
+    width: 90%;
+    margin-bottom: 5px;
 }
 
 .timerButtons{
-    display: inline-block;
+    text-align: center;
+}
+
+.timerButtons button {
+    display: block;
+    margin: 0 5px;
+    padding: 5px;
 }
