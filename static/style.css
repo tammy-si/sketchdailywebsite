@@ -283,10 +283,19 @@ tr {
     user-select: none;
 }
 
-.timer input {
+.timer textarea {
     height: 55px;
     width: 90%;
     margin-bottom: 5px;
+    margin-right: 10px;
+    font-size: 32px;
+    resize: none;
+    padding-top: 5px;
+    text-align: right;
+}
+
+.timer textarea::placeholder {
+    text-align: center;
 }
 
 .timerButtons{
@@ -298,3 +307,4 @@ tr {
     margin: 0 5px;
     padding: 5px;
 }
+

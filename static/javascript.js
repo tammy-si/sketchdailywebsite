@@ -67,6 +67,10 @@ function enlargeImage(originalPic) {
 
 // hold event handlers for buttons that work after the window has loaded (such as the close enlarge mode button and random button)
 window.onload = function () {
+    // for the timer
+    document.getElementById("timerText").onclick = function() {
+        document.getElementById("timerText").value = " ";
+    }
 
     // when someone clicks the close button on the top right in the enlarged mode
     document.getElementById("closeButton").onclick = function () {
