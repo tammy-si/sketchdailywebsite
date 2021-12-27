@@ -66,11 +66,26 @@ function enlargeImage(originalPic) {
 }
 
 // hold event handlers for buttons that work after the window has loaded (such as the close enlarge mode button and random button)
+// need the window.onload because otherwise the functions might run before the DOM fully loads
 window.onload = function () {
-    // for the timer
-    document.getElementById("timerText").onclick = function() {
-        document.getElementById("timerText").value = " ";
-    }
+
+    // event handler to restrict the input for the timer
+    document.getElementById("timerInput").onkeyup = function (event) {
+        console.log("test");
+        // timerInputVal is the numbers the users have inputted
+        var timerInputVal = document.getElementById("timerInput").value;
+        // regex for whether a string contains only numbers
+        var regex = /^\d+$/
+        console.log(timerInputVal)
+        // if they user doesn't input a number
+        if (!timerInputVal.match(regex)){
+            console.log("not a number");
+            document.getElementById("timerInput").value = timerInputVal.slice(0, -1);
+            return false;
+            console.log(document.getElementById("timerInput").value)
+        }
+        // for if the user adds more than the max amount of digits
+    };
 
     // when someone clicks the close button on the top right in the enlarged mode
     document.getElementById("closeButton").onclick = function () {
@@ -124,7 +139,6 @@ window.onload = function () {
 
  // load the images from upsplash based on today's theme
  async function loadPictures (theme, main, upsplash_access_key) {
-    console.log("test")
     // remove special characters from the theme passed in so the query doesn't break
     theme = theme.replace(/[^a-zA-Z ]/g, '');
     // for get multiple pages of images
@@ -132,7 +146,6 @@ window.onload = function () {
     const response = await fetch('https://api.unsplash.com/search/photos?per_page=30&query=' + theme +'&client_id=' + upsplash_access_key);
     // get what the server sent back (response) and then make it into json so we can read and parse
     data = await response.json()
-    console.log(data)
     // for just in case Upsplash doesn't have any images for the themes
     if (data.results.length == 0) {
         console.log(main ? "Upsplash has no images for today's main theme" : "Upsplash has no images for today's alternate theme");
