@@ -70,7 +70,7 @@ function enlargeImage(originalPic) {
 window.onload = function () {
 
     // event handler to restrict the input for the timer
-    document.getElementById("timerInput").onkeyup = function (event) {
+    document.getElementById("timerInput").oninput = function (event) {
         console.log("test");
         // timerInputVal is the numbers the users have inputted
         var timerInputVal = document.getElementById("timerInput").value;
