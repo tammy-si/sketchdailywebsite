@@ -69,7 +69,7 @@ function enlargeImage(originalPic) {
 // need the window.onload because otherwise the functions might run before the DOM fully loads
 window.onload = function () {
 
-    // event handler to restrict the input for the timer
+    // event handler to restrict the input for the timer, also to update the timerDigits 
     document.getElementById("timerInput").oninput = function (event) {
         console.log("test");
         // timerInputVal is the numbers the users have inputted
@@ -80,11 +80,19 @@ window.onload = function () {
         // if they user doesn't input a number
         if (!timerInputVal.match(regex)){
             console.log("not a number");
+            // remove the last character
             document.getElementById("timerInput").value = timerInputVal.slice(0, -1);
+            // stop the input event from continuing
             return false;
-            console.log(document.getElementById("timerInput").value)
         }
         // for if the user adds more than the max amount of digits
+        if (String(timerInputVal).length > 6) {
+            // remove the first digit
+            document.getElementById("timerInput").value = timerInputVal.slice(1, String(timerInputVal).length);
+        }
+
+        // update the timerDigits
+        updateDigits();
     };
 
     // when someone clicks the close button on the top right in the enlarged mode
@@ -229,5 +237,16 @@ function fixHeader() {
     }
     catch {
         window.removeEventListener('scroll', fixHeader);
+    }
+}
+
+// code to update the timerDigits
+function updateDigits() {
+    console.log("coolio")
+    let timerInputVal = document.getElementById("timerInput").value;
+    // start from the right side and go left till finish putting all the digits the user has inputted so far
+    for (let i = 0; i <= String(timerInputVal).length - 1; i++) {
+        // change the corresponding timerDigit to the corresponding user input digit
+        document.getElementById("digit"+i).innerHTML = String(timerInputVal).slice(String(timerInputVal).length - 1 - i, String(timerInputVal).length - i);
     }
 }
