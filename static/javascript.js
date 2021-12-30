@@ -8,7 +8,7 @@ let altflag = false;
 var englarge = false;
 // default time for the timer is 5 mins (which is 300 secs). time is in seconds
 var time = 300;
-var inputMode = false;
+var timerInputMode = false;
 
  // when we hover over a picture
 function onHover(pic) {
@@ -99,7 +99,19 @@ window.onload = function () {
         updateDigits();
     };
 
-    // when the user isn't in inputMode
+    // when the user is in focus and in inputMode
+    document.getElementById("timerInput").onfocus = function () {
+        console.log("in input mode")
+        timerInputMode = true;
+        document.getElementById("finalTimer").style.display = "none";
+    }
+
+    // when the user is not in inputMode
+    document.getElementById("timerInput").onblur = function () {
+        timerInputMode = false;
+        console.log("not input mode")
+        document.getElementById("finalTimer").style.display = "initial";
+    }
 
     // when someone clicks the close button on the top right in the enlarged mode
     document.getElementById("closeButton").onclick = function () {

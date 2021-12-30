@@ -325,3 +325,20 @@ tr {
     position: relative;
     left: 3px;
 }
+
+.finalTimer {
+    transform:rotate(270deg);
+    font-size: 30px;
+    padding: 4px;
+    display: inline-block;
+    position: absolute;
+    height: 230px;
+    text-align: center;
+    bottom: -50px;
+    left: 98px;
+}
+
+.finalTimer span {
+    color: black;
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+}
