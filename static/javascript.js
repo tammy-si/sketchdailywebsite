@@ -6,6 +6,9 @@ let mainflag = false;
 let altflag = false;
 // check if a picture has been enlarged
 var englarge = false;
+// default time for the timer is 5 mins (which is 300 secs). time is in seconds
+var time = 300;
+var inputMode = false;
 
  // when we hover over a picture
 function onHover(pic) {
@@ -83,6 +86,7 @@ window.onload = function () {
             // remove the last character
             document.getElementById("timerInput").value = timerInputVal.slice(0, -1);
             // stop the input event from continuing
+            updateDigits()
             return false;
         }
         // for if the user adds more than the max amount of digits
@@ -95,9 +99,10 @@ window.onload = function () {
         updateDigits();
     };
 
+    // when the user isn't in inputMode
+
     // when someone clicks the close button on the top right in the enlarged mode
     document.getElementById("closeButton").onclick = function () {
-        console.log(enlarge)
         // check if an image is currently enlarge and the user is in enlarge mode
         if (enlarge == true) {
             // take away css to get out of enlarge mode. 
@@ -120,7 +125,7 @@ window.onload = function () {
         document.getElementById("enlargedImg").src = mainStorage.results[number].urls["regular"];
         enlargeImage(document.getElementById(mainStorage.results[number].id));
         // add css to change to enlarge mode
-        document.getElementById("closeButton").style.display = "initial";
+        document.getElementById("closeButton").style.display = " initial";
         document.getElementById("cover").classList.add("covered");
         document.getElementById("enlargedImg").classList.add("enlarged");
         document.getElementById("enlargedImg").style.display = "initial";
@@ -248,5 +253,9 @@ function updateDigits() {
     for (let i = 0; i <= String(timerInputVal).length - 1; i++) {
         // change the corresponding timerDigit to the corresponding user input digit
         document.getElementById("digit"+i).innerHTML = String(timerInputVal).slice(String(timerInputVal).length - 1 - i, String(timerInputVal).length - i);
+    }
+    // make everything else zero
+    for (let i = timerInputVal.length; i < 6; i ++) {
+        document.getElementById("digit"+i).innerHTML = 0;
     }
 }
