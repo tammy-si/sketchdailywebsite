@@ -90,9 +90,9 @@ window.onload = function () {
             return false;
         }
         // for if the user adds more than the max amount of digits
-        if (String(timerInputVal).length > 6) {
+        if (timerInputVal.length > 6) {
             // remove the first digit
-            document.getElementById("timerInput").value = timerInputVal.slice(1, String(timerInputVal).length);
+            document.getElementById("timerInput").value = timerInputVal.slice(1, timerInputVal.length);
         }
 
         // update the timerDigits
@@ -261,13 +261,38 @@ function fixHeader() {
 function updateDigits() {
     console.log("coolio")
     let timerInputVal = document.getElementById("timerInput").value;
+    console.log(typeof(timerInputVal))
+    if (timerInputVal.length == 0) {
+        document.getElementById("digitH").style.opacity = "0.5";
+        document.getElementById("digitM").style.opacity = "0.5";
+        document.getElementById("digitSec").style.opacity = "0.5";
+    }
     // start from the right side and go left till finish putting all the digits the user has inputted so far
-    for (let i = 0; i <= String(timerInputVal).length - 1; i++) {
+    for (let i = 0; i <= timerInputVal.length - 1; i++) {
         // change the corresponding timerDigit to the corresponding user input digit
-        document.getElementById("digit"+i).innerHTML = String(timerInputVal).slice(String(timerInputVal).length - 1 - i, String(timerInputVal).length - i);
+        document.getElementById("digit"+i).innerHTML = timerInputVal.slice(timerInputVal.length - 1 - i,(timerInputVal.length - i));
+        // make the timerDigit black
+        document.getElementById("digit"+i).style.opacity = "1";
+        // make the h, m, s black
+        if (((document.getElementById("timerInput").value).length) > 4 ){
+            document.getElementById("digitH").style.opacity = "1";
+            document.getElementById("digitM").style.opacity = "1";
+            document.getElementById("digitSec").style.opacity = "1";
+        }
+        else if (((document.getElementById("timerInput").value).length) > 2 ){
+            document.getElementById("digitH").style.opacity = "0.5";
+            document.getElementById("digitM").style.opacity = "1";
+            document.getElementById("digitSec").style.opacity = "1";
+        }
+        else if (((document.getElementById("timerInput").value).length) > 0 ){
+            document.getElementById("digitH").style.opacity = "0.5";
+            document.getElementById("digitM").style.opacity = "0.5";
+            document.getElementById("digitSec").style.opacity = "1";
+        } 
     }
     // make everything else zero
     for (let i = timerInputVal.length; i < 6; i ++) {
         document.getElementById("digit"+i).innerHTML = 0;
+        document.getElementById("digit"+i).style.opacity = "0.5";
     }
 }

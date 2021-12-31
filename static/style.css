@@ -308,7 +308,8 @@ tr {
 }
 
 .timerDigits span{
-    color: rgba(0,0,0, 0.5);
+    color: rgba(0,0,0);
+    opacity: 0.5;
 }
 
 .timerButtons{
