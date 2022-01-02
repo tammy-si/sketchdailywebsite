@@ -8,13 +8,13 @@
 <div class="timer">
     <h1>Timer</h1>
     <div class = "timerInner">
-        <div class = "timerDigits">
-            <span id = "digit5">0</span><span id = "digit4">0</span><span id = "digitH">h</span>
-            <span id = "digit3">0</span><span id = "digit2">5</span><span id = "digitM">m</span>
-            <span id = "digit1">0</span><span id = "digit0">0</span><span id = "digitSec">s</span>
+        <div class = "timerDigits" id="timerDigits">
+            <span id = "digit5" onclick = "moveCursor(this)">0</span><span id = "digit4" onclick = "moveCursor(this)">0</span><span id = "digitH" onclick = "moveCursor(this)">h</span>
+            <span id = "digit3" onclick = "moveCursor(this)">0</span><span id = "digit2" onclick = "moveCursor(this)">5</span><span id = "digitM" onclick = "moveCursor(this)">m</span>
+            <span id = "digit1" onclick = "moveCursor(this)">0</span><span id = "digit0" onclick = "moveCursor(this)">0</span><span id = "digitSec" class= "timerCursor" onclick = "moveCursor(this)">s</span>
         </div>
         <div class = "finalTimer" id= "finalTimer">
-            <span>5m00s<span>
+            <span>5m 00s<span>
         </div>
         <input id= "timerInput"></input>
         <div class = "timerButtons">

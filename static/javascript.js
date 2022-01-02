@@ -8,7 +8,7 @@ let altflag = false;
 var englarge = false;
 // default time for the timer is 5 mins (which is 300 secs). time is in seconds
 var time = 300;
-var timerInputMode = false;
+var mouseOverDigits = false;
 
  // when we hover over a picture
 function onHover(pic) {
@@ -98,19 +98,36 @@ window.onload = function () {
         // update the timerDigits
         updateDigits();
     };
-
-    // when the user is in focus and in inputMode
-    document.getElementById("timerInput").onfocus = function () {
-        console.log("in input mode")
-        timerInputMode = true;
-        document.getElementById("finalTimer").style.display = "none";
+    
+    // go into input mode when the user tries to click on the finalTimer
+    document.getElementById("finalTimer").onclick = function() {
+        document.getElementById("timerInput").focus();
     }
 
-    // when the user is not in inputMode
+    // when the user is currently trying to input numbers into timer
+    document.getElementById("timerInput").onfocus = function () {
+        console.log("in input mode")
+        document.getElementById("finalTimer").style.display = "none";
+    }
+    // when the user is currenlty clicking while they're in input mode
     document.getElementById("timerInput").onblur = function () {
-        timerInputMode = false;
-        console.log("not input mode")
-        document.getElementById("finalTimer").style.display = "initial";
+        // if they user is clicking off the input box, go off input mode and display the final time
+        if (mouseOverDigits == false) {
+            document.getElementById("finalTimer").style.display = "initial";
+        }
+        else {
+            document.getElementById("timerInput").focus();
+        }
+    }
+
+    // to keep track if the user is clicking off the input box or not. 
+    document.getElementById("timerDigits").onmouseover = function() {
+        mouseOverDigits = true;
+        console.log("wheelie");
+    }
+    document.getElementById("timerDigits").onmouseleave = function() {
+        mouseOverDigits = false;
+        console.log("off");
     }
 
     // when someone clicks the close button on the top right in the enlarged mode
@@ -295,4 +312,10 @@ function updateDigits() {
         document.getElementById("digit"+i).innerHTML = 0;
         document.getElementById("digit"+i).style.opacity = "0.5";
     }
+}
+
+// function to move the timer cursor arround
+function moveCursor(digit) {
+    console.log("riptide");
+    console.log(digit);
 }

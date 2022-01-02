@@ -305,6 +305,7 @@ tr {
     text-align: center;
     bottom: -50px;
     left: 98px;
+    z-index: 2;
 }
 
 .timerDigits span{
@@ -337,9 +338,15 @@ tr {
     text-align: center;
     bottom: -50px;
     left: 98px;
+    z-index: 3;
 }
 
 .finalTimer span {
     color: black;
     font-family: Verdana, Geneva, Tahoma, sans-serif;
+}
+
+div.timer .timerCursor {
+    border-top: 1px solid black;
+    opacity: 1;
 }
