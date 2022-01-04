@@ -280,42 +280,45 @@ function updateDigits() {
     let timerInputVal = document.getElementById("timerInput").value;
     console.log(typeof(timerInputVal))
     if (timerInputVal.length == 0) {
-        document.getElementById("digitH").style.opacity = "0.5";
-        document.getElementById("digitM").style.opacity = "0.5";
-        document.getElementById("digitSec").style.opacity = "0.5";
+        document.getElementById("digitH").classList.remove("timerInputted");
+        document.getElementById("digitM").classList.remove("timerInputted");
+        document.getElementById("digitSec").classList.remove("timerInputted");
     }
     // start from the right side and go left till finish putting all the digits the user has inputted so far
     for (let i = 0; i <= timerInputVal.length - 1; i++) {
         // change the corresponding timerDigit to the corresponding user input digit
         document.getElementById("digit"+i).innerHTML = timerInputVal.slice(timerInputVal.length - 1 - i,(timerInputVal.length - i));
         // make the timerDigit black
-        document.getElementById("digit"+i).style.opacity = "1";
+        document.getElementById("digit"+i).classList.add("timerInputted");
         // make the h, m, s black
         if (((document.getElementById("timerInput").value).length) > 4 ){
-            document.getElementById("digitH").style.opacity = "1";
-            document.getElementById("digitM").style.opacity = "1";
-            document.getElementById("digitSec").style.opacity = "1";
+            document.getElementById("digitH").classList.add("timerInputted");
+            document.getElementById("digitM").classList.add("timerInputted");
+            document.getElementById("digitSec").classList.add("timerInputted");
         }
         else if (((document.getElementById("timerInput").value).length) > 2 ){
-            document.getElementById("digitH").style.opacity = "0.5";
-            document.getElementById("digitM").style.opacity = "1";
-            document.getElementById("digitSec").style.opacity = "1";
+            document.getElementById("digitH").classList.remove("timerInputted");
+            document.getElementById("digitM").classList.add("timerInputted");
+            document.getElementById("digitSec").classList.add("timerInputted");
         }
         else if (((document.getElementById("timerInput").value).length) > 0 ){
-            document.getElementById("digitH").style.opacity = "0.5";
-            document.getElementById("digitM").style.opacity = "0.5";
-            document.getElementById("digitSec").style.opacity = "1";
+            document.getElementById("digitH").classList.remove("timerInputted");
+            document.getElementById("digitM").classList.remove("timerInputted");
+            document.getElementById("digitSec").classList.add("timerInputted");
         } 
     }
     // make everything else zero
     for (let i = timerInputVal.length; i < 6; i ++) {
         document.getElementById("digit"+i).innerHTML = 0;
-        document.getElementById("digit"+i).style.opacity = "0.5";
+        document.getElementById("digit"+i).classList.remove("timerInputted");
     }
 }
 
 // function to move the timer cursor arround
 function moveCursor(digit) {
-    console.log("riptide");
-    console.log(digit);
+    console.log("riptide")
+    // check if the digit the user click one has been one that the user has inputted
+        // get the current location of the cursor 
+        var current = document.getElementsByClassName("timerCursor")[0];
+        console.log(current);
 }

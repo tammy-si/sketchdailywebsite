@@ -350,3 +350,7 @@ div.timer .timerCursor {
     border-top: 1px solid black;
     opacity: 1;
 }
+
+.timerDigits .timerInputted {
+    opacity: 1;
+}
