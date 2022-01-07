@@ -317,8 +317,23 @@ function updateDigits() {
 // function to move the timer cursor arround
 function moveCursor(digit) {
     console.log("riptide")
-    // check if the digit the user click one has been one that the user has inputted
-        // get the current location of the cursor 
-        var current = document.getElementsByClassName("timerCursor")[0];
-        console.log(current);
+    // get the current location of the cursor
+    var current = document.getElementsByClassName("timerCursor")[0];
+
+    // check if the digit the user click one has been one that the user has inputted and it's not a special digit
+    if (digit.classList.contains("timerInputted") && digit.id !== "digitSec" && digit.id !== "digitM" && digit.id !== "digitH") {
+        // remove the old cursor
+        current.classList.remove("timerCursor");
+        current.classList.remove("cursorSpecial");
+        // put the cursor behind the digit the user just clicked on
+        digit.classList.add("timerCursor");
+    // if the user clicks off infront of the inputted digits (like the low opacity zeros in front)
+    } else if (!(digit.classList.contains("timerInputted"))) {
+        // remove the old cursor
+        current.classList.remove("timerCursor");
+        var inputted = document.getElementsByClassName("timerInputted");
+        // get the front number inputted and make it a special cursor so that the dash is in front
+        inputted[0].classList.add("timerCursor");
+        inputted[0].classList.add("cursorSpecial");
+    } 
 }
