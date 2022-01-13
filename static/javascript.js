@@ -319,7 +319,8 @@ function moveCursor(digit) {
     console.log("riptide")
     // get the current location of the cursor
     var current = document.getElementsByClassName("timerCursor")[0];
-
+    console.log(current);
+    console.log(digit);
     // check if the digit the user click one has been one that the user has inputted and it's not a special digit
     if (digit.classList.contains("timerInputted") && digit.id !== "digitSec" && digit.id !== "digitM" && digit.id !== "digitH") {
         // remove the old cursor
@@ -332,8 +333,15 @@ function moveCursor(digit) {
         // remove the old cursor
         current.classList.remove("timerCursor");
         var inputted = document.getElementsByClassName("timerInputted");
-        // get the front number inputted and make it a special cursor so that the dash is in front
-        inputted[0].classList.add("timerCursor");
-        inputted[0].classList.add("cursorSpecial");
+        console.log(inputted)
+        // in case user has nothing inputted, just put the cursor infront of the s.
+        if (inputted.length == 0) {
+            document.getElementById("digitSec").classList.add("timerCursor");
+            document.getElementById("digitSec").classList.add("cursorSpecial");
+        } else {
+            // get the front number inputted and make it a special cursor so that the dash is in front
+            inputted[0].classList.add("timerCursor");
+            inputted[0].classList.add("cursorSpecial");
+        }
     } 
 }
