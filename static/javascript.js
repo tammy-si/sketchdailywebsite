@@ -94,7 +94,7 @@ window.onload = function () {
             // remove the first digit
             document.getElementById("timerInput").value = timerInputVal.slice(1, timerInputVal.length);
         }
-
+        // when the user tries to delete something that isn't inputted yet (like press delete on the front of the digits)
         // update the timerDigits
         updateDigits();
     };
@@ -106,7 +106,6 @@ window.onload = function () {
 
     // when the user is currently trying to input numbers into timer
     document.getElementById("timerInput").onfocus = function () {
-        console.log("in input mode")
         document.getElementById("finalTimer").style.display = "none";
     }
     // when the user is currenlty clicking while they're in input mode
@@ -123,11 +122,9 @@ window.onload = function () {
     // to keep track if the user is clicking off the input box or not. 
     document.getElementById("timerDigits").onmouseover = function() {
         mouseOverDigits = true;
-        console.log("wheelie");
     }
     document.getElementById("timerDigits").onmouseleave = function() {
         mouseOverDigits = false;
-        console.log("off");
     }
 
     // when someone clicks the close button on the top right in the enlarged mode
@@ -319,8 +316,18 @@ function moveCursor(digit) {
     console.log("riptide")
     // get the current location of the cursor
     var current = document.getElementsByClassName("timerCursor")[0];
-    console.log(current);
-    console.log(digit);
+    // get element's of html digits that have been inputted and stores it as an array
+    var inputted =  Array.prototype.slice.call(document.getElementsByClassName("timerInputted"));
+    console.log(inputted)
+    // inputtedNums will holds only the numbers the user has inputted as a list. inputted holds both the nums and the h,m,s digits
+    var inputtedNums = [];
+    console.log(inputtedNums);
+    for (var index = 0; index < inputted.length; index++){
+        if (inputted[index].id !== "digitH" && inputted[index].id !== "digitM" && inputted[index].id !== "digitSec") {
+            inputtedNums.push(inputted[index]);
+        }
+    }
+    console.log(inputtedNums);
     // check if the digit the user click one has been one that the user has inputted and it's not a special digit
     if (digit.classList.contains("timerInputted") && digit.id !== "digitSec" && digit.id !== "digitM" && digit.id !== "digitH") {
         // remove the old cursor
@@ -328,12 +335,19 @@ function moveCursor(digit) {
         current.classList.remove("cursorSpecial");
         // put the cursor behind the digit the user just clicked on
         digit.classList.add("timerCursor");
+        // change cursor location in the actual input field
+        // first we get the index of the digit user clicked on going from left to right. 
+         // ex: user inputted 1234, 2 would be index 1, 4 would be index 3. 
+        for (var i = 0; i < inputtedNums.length; i++) {
+            if (inputtedNums[i] == digit) {
+                document.getElementById("timerInput").setSelectionRange(i+1, i+1);
+                break;
+            }
+        }
     // if the user clicks off infront of the inputted digits (like the low opacity zeros in front)
     } else if (!(digit.classList.contains("timerInputted"))) {
         // remove the old cursor
         current.classList.remove("timerCursor");
-        var inputted = document.getElementsByClassName("timerInputted");
-        console.log(inputted)
         // in case user has nothing inputted, just put the cursor infront of the s.
         if (inputted.length == 0) {
             document.getElementById("digitSec").classList.add("timerCursor");
