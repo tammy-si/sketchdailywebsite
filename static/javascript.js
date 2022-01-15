@@ -9,6 +9,8 @@ var englarge = false;
 // default time for the timer is 5 mins (which is 300 secs). time is in seconds
 var time = 300;
 var mouseOverDigits = false;
+// to keep track of the cursor location in the timer
+var cursorLocation = 0;
 
  // when we hover over a picture
 function onHover(pic) {
@@ -74,12 +76,10 @@ window.onload = function () {
 
     // event handler to restrict the input for the timer, also to update the timerDigits 
     document.getElementById("timerInput").oninput = function (event) {
-        console.log("test");
         // timerInputVal is the numbers the users have inputted
         var timerInputVal = document.getElementById("timerInput").value;
         // regex for whether a string contains only numbers
         var regex = /^\d+$/
-        console.log(timerInputVal)
         // if they user doesn't input a number
         if (!timerInputVal.match(regex)){
             console.log("not a number");
@@ -97,6 +97,8 @@ window.onload = function () {
         // when the user tries to delete something that isn't inputted yet (like press delete on the front of the digits)
         // update the timerDigits
         updateDigits();
+        // this is to keep the cursor at the location it's supposed to be at
+        document.getElementById("timerInput").setSelectionRange(cursorLocation, cursorLocation);
     };
     
     // go into input mode when the user tries to click on the finalTimer
@@ -273,9 +275,7 @@ function fixHeader() {
 
 // code to update the timerDigits
 function updateDigits() {
-    console.log("coolio")
     let timerInputVal = document.getElementById("timerInput").value;
-    console.log(typeof(timerInputVal))
     if (timerInputVal.length == 0) {
         document.getElementById("digitH").classList.remove("timerInputted");
         document.getElementById("digitM").classList.remove("timerInputted");
@@ -313,15 +313,13 @@ function updateDigits() {
 
 // function to move the timer cursor arround
 function moveCursor(digit) {
-    console.log("riptide")
+    console.log("car")
     // get the current location of the cursor
     var current = document.getElementsByClassName("timerCursor")[0];
     // get element's of html digits that have been inputted and stores it as an array
     var inputted =  Array.prototype.slice.call(document.getElementsByClassName("timerInputted"));
-    console.log(inputted)
     // inputtedNums will holds only the numbers the user has inputted as a list. inputted holds both the nums and the h,m,s digits
     var inputtedNums = [];
-    console.log(inputtedNums);
     for (var index = 0; index < inputted.length; index++){
         if (inputted[index].id !== "digitH" && inputted[index].id !== "digitM" && inputted[index].id !== "digitSec") {
             inputtedNums.push(inputted[index]);
@@ -341,6 +339,7 @@ function moveCursor(digit) {
         for (var i = 0; i < inputtedNums.length; i++) {
             if (inputtedNums[i] == digit) {
                 document.getElementById("timerInput").setSelectionRange(i+1, i+1);
+                cursorLocation = i+1;
                 break;
             }
         }
@@ -357,5 +356,7 @@ function moveCursor(digit) {
             inputted[0].classList.add("timerCursor");
             inputted[0].classList.add("cursorSpecial");
         }
+        document.getElementById("timerInput").setSelectionRange(0, 0);
+        cursorLocation = 0;
     } 
 }
