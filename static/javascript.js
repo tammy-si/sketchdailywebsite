@@ -91,7 +91,7 @@ window.onload = function () {
             console.log("not a number");
             // remove the character just inputted
             document.getElementById("timerInput").value = (cursorLocation == -1) ? timerInputVal.slice(0, -1) : timerInputVal.slice(0, cursorLocation) + timerInputVal.slice(cursorLocation + 1);
-
+            return false;
         }
         // for if the user adds more than the max amount of digits
         if (timerInputVal.length > 6) {
@@ -364,7 +364,11 @@ function moveCursor(digit) {
             inputtedNums[0].classList.add("timerCursor");
             inputtedNums[0].classList.add("cursorSpecial");
         }
-        cursorLocation = digit;
+        // we remeber the cursor location as the first digit span infront of all the inputted digits
+        var newDigitNum = parseInt(inputtedNums[0].id.substring(inputtedNums[0].id.length - 1, inputtedNums[0].id.length)) + 1;
+        console.log(inputtedNums[0].id.slice(0, -1) + newDigitNum);
+        cursorLocation = document.getElementById(inputtedNums[0].id.slice(0, -1) + newDigitNum);
         document.getElementById("timerInput").setSelectionRange(0, 0);
     }
+    console.log(cursorLocation);
 }
