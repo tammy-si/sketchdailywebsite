@@ -356,13 +356,13 @@ function moveCursor(digit) {
         // remove the old cursor
         current.classList.remove("timerCursor");
         // in case user has nothing inputted, just put the cursor infront of the s.
-        if (inputted.length == 0) {
+        if (inputtedNums.length == 0) {
             document.getElementById("digitSec").classList.add("timerCursor");
             document.getElementById("digitSec").classList.add("cursorSpecial");
         } else {
             // get the front number inputted and make it a special cursor so that the dash is in front
-            inputted[0].classList.add("timerCursor");
-            inputted[0].classList.add("cursorSpecial");
+            inputtedNums[0].classList.add("timerCursor");
+            inputtedNums[0].classList.add("cursorSpecial");
         }
         cursorLocation = digit;
         document.getElementById("timerInput").setSelectionRange(0, 0);
