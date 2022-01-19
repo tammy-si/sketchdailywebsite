@@ -109,15 +109,13 @@ window.onload = function () {
                 inputtedNums.push(inputted[index]);
             }
         }
-        console.log(inputtedNums);
-        console.log(cursorLocation);
         // this is to keep the cursor at the location it's supposed to be at by adjusting the inputTimer's cursor to match the digit spans
         for (var i = 0; i < inputtedNums.length; i++) {
             if (inputtedNums[i] == cursorLocation) {
-                console.log(i)
                 document.getElementById("timerInput").setSelectionRange(i + 1, i + 1);
             }
         }
+        console.log(cursorLocation);
     };
     
     // go into input mode when the user tries to click on the finalTimer
@@ -366,7 +364,6 @@ function moveCursor(digit) {
         }
         // we remeber the cursor location as the first digit span infront of all the inputted digits
         var newDigitNum = parseInt(inputtedNums[0].id.substring(inputtedNums[0].id.length - 1, inputtedNums[0].id.length)) + 1;
-        console.log(inputtedNums[0].id.slice(0, -1) + newDigitNum);
         cursorLocation = document.getElementById(inputtedNums[0].id.slice(0, -1) + newDigitNum);
         document.getElementById("timerInput").setSelectionRange(0, 0);
     }
