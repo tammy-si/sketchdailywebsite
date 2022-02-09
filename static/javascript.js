@@ -10,7 +10,7 @@ var englarge = false;
 var time = 300;
 var mouseOverDigits = false;
 // to keep track of the cursor location in the timer by remebering with span digit the cursor is supposed to be on.
-var cursorLocation = document.getElementById("digitSec");
+var cursorLocation;
 // inputtedNums will holds only the numbers the user has inputted as a list.
 var inputtedNums = [];
 
@@ -75,22 +75,38 @@ function enlargeImage(originalPic) {
 // hold event handlers for buttons that work after the window has loaded (such as the close enlarge mode button and random button)
 // need the window.onload because otherwise the functions might run before the DOM fully loads
 window.onload = function () {
+    cursorLocation = document.getElementById("digitSec");
 
     // event handler to restrict the input for the timer, also to update the timerDigits 
     document.getElementById("timerInput").oninput = function (event) {
-        console.log("test")
         // timerInputVal is the numbers the users have inputted
         var timerInputVal = document.getElementById("timerInput").value;
         // regex for whether a string contains only numbers
-        var regex = /^\d+$/
+        var regex = /^\d+$/;
         if (timerInputVal.length == 0) {
             updateDigits();
         }
         // if they user doesn't input a number
         if (!timerInputVal.match(regex)){
             console.log("not a number");
+            console.log(inputtedNums);
+            console.log(cursorLocation);
             // remove the character just inputted
-            document.getElementById("timerInput").value = (cursorLocation == -1) ? timerInputVal.slice(0, -1) : timerInputVal.slice(0, cursorLocation) + timerInputVal.slice(cursorLocation + 1);
+            if (cursorLocation == document.getElementById("digitSec")) {
+                document.getElementById("timerInput").value = timerInputVal.slice(0, -1);
+            } else {
+                console.log(timerInputVal.slice(0, inputtedNums.indexOf(cursorLocation) + 1));
+                console.log(timerInputVal.slice((inputtedNums.indexOf(cursorLocation) + 2), timerInputVal.length));
+                var combined = (timerInputVal.slice(0, inputtedNums.indexOf(cursorLocation) + 1) + timerInputVal.slice((inputtedNums.indexOf(cursorLocation) + 2), timerInputVal.length));
+                document.getElementById("timerInput").value = timerInputVal.slice(0, inputtedNums.indexOf(cursorLocation) + 1) + timerInputVal.slice((inputtedNums.indexOf(cursorLocation) + 2), timerInputVal.length);
+                console.log(document.getElementById("timerInput").value);
+            }
+            // this is to keep the cursor at the location it's supposed to be at by adjusting the inputTimer's cursor to match the digit spans
+            for (var i = 0; i < inputtedNums.length; i++) {
+                if (inputtedNums[i] == cursorLocation) {
+                    document.getElementById("timerInput").setSelectionRange(i + 1, i + 1);
+            }
+        }
             return false;
         }
         // for if the user adds more than the max amount of digits
@@ -98,12 +114,12 @@ window.onload = function () {
             // remove the first digit and move the timer caret
             document.getElementById("timerInput").value = timerInputVal.slice(1, timerInputVal.length);
         }
-        // when the user tries to delete something that isn't inputted yet (like press delete on the front of the digits)
         // update the timerDigits
         updateDigits();
         // get element's of html digits (including h,m,s) that have been inputted and stores it as an array
         var inputted =  Array.prototype.slice.call(document.getElementsByClassName("timerInputted"));
         inputtedNums = [];
+        // then we remove the (h,m,s) and just put the digits elments into inputte
         for (var index = 0; index < inputted.length; index++){
             if (inputted[index].id !== "digitH" && inputted[index].id !== "digitM" && inputted[index].id !== "digitSec") {
                 inputtedNums.push(inputted[index]);
