@@ -92,8 +92,9 @@ window.onload = function () {
             console.log(inputtedNums);
             console.log(cursorLocation);
             // remove the character just inputted
-            if (cursorLocation == document.getElementById("digitSec")) {
-                document.getElementById("timerInput").value = timerInputVal.slice(0, -1);
+            if (cursorLocation == document.getElementById("digitSec") || !inputtedNums.includes(cursorLocation)) {
+                document.getElementById("timerInput").value = timerInputVal.slice(1, timerInputVal.length);
+                document.getElementById("timerInput").setSelectionRange(0, 0);
             } else {
                 console.log(timerInputVal.slice(0, inputtedNums.indexOf(cursorLocation) + 1));
                 console.log(timerInputVal.slice((inputtedNums.indexOf(cursorLocation) + 2), timerInputVal.length));
@@ -118,8 +119,9 @@ window.onload = function () {
         updateDigits();
         // get element's of html digits (including h,m,s) that have been inputted and stores it as an array
         var inputted =  Array.prototype.slice.call(document.getElementsByClassName("timerInputted"));
+        console.log(inputted);
         inputtedNums = [];
-        // then we remove the (h,m,s) and just put the digits elments into inputte
+        // then we remove the (h,m,s) and just put the digits elments into inputted
         for (var index = 0; index < inputted.length; index++){
             if (inputted[index].id !== "digitH" && inputted[index].id !== "digitM" && inputted[index].id !== "digitSec") {
                 inputtedNums.push(inputted[index]);
@@ -131,7 +133,9 @@ window.onload = function () {
                 document.getElementById("timerInput").setSelectionRange(i + 1, i + 1);
             }
         }
+        console.log(document.getElementById("timerInput").value);
         console.log(cursorLocation);
+        console.log(inputtedNums);
     };
     
     // go into input mode when the user tries to click on the finalTimer
