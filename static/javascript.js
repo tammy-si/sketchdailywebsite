@@ -76,9 +76,9 @@ function enlargeImage(originalPic) {
 // need the window.onload because otherwise the functions might run before the DOM fully loads
 window.onload = function () {
     cursorLocation = document.getElementById("digitSec");
-
     // event handler to restrict the input for the timer, also to update the timerDigits 
     document.getElementById("timerInput").oninput = function (event) {
+        console.log(inputtedNums);
         // timerInputVal is the numbers the users have inputted
         var timerInputVal = document.getElementById("timerInput").value;
         // regex for whether a string contains only numbers
@@ -90,24 +90,17 @@ window.onload = function () {
         if (!timerInputVal.match(regex)){
             console.log("not a number");
             console.log(inputtedNums);
-            console.log(cursorLocation);
             // remove the character just inputted
+            // removing a character in
             if (cursorLocation == document.getElementById("digitSec") || !inputtedNums.includes(cursorLocation)) {
                 document.getElementById("timerInput").value = timerInputVal.slice(1, timerInputVal.length);
                 document.getElementById("timerInput").setSelectionRange(0, 0);
+                console.log("this one");
             } else {
-                console.log(timerInputVal.slice(0, inputtedNums.indexOf(cursorLocation) + 1));
-                console.log(timerInputVal.slice((inputtedNums.indexOf(cursorLocation) + 2), timerInputVal.length));
                 var combined = (timerInputVal.slice(0, inputtedNums.indexOf(cursorLocation) + 1) + timerInputVal.slice((inputtedNums.indexOf(cursorLocation) + 2), timerInputVal.length));
                 document.getElementById("timerInput").value = timerInputVal.slice(0, inputtedNums.indexOf(cursorLocation) + 1) + timerInputVal.slice((inputtedNums.indexOf(cursorLocation) + 2), timerInputVal.length);
-                console.log(document.getElementById("timerInput").value);
             }
-            // this is to keep the cursor at the location it's supposed to be at by adjusting the inputTimer's cursor to match the digit spans
-            for (var i = 0; i < inputtedNums.length; i++) {
-                if (inputtedNums[i] == cursorLocation) {
-                    document.getElementById("timerInput").setSelectionRange(i + 1, i + 1);
-            }
-        }
+            keepCursor();
             return false;
         }
         // for if the user adds more than the max amount of digits
@@ -119,7 +112,6 @@ window.onload = function () {
         updateDigits();
         // get element's of html digits (including h,m,s) that have been inputted and stores it as an array
         var inputted =  Array.prototype.slice.call(document.getElementsByClassName("timerInputted"));
-        console.log(inputted);
         inputtedNums = [];
         // then we remove the (h,m,s) and just put the digits elments into inputted
         for (var index = 0; index < inputted.length; index++){
@@ -127,16 +119,9 @@ window.onload = function () {
                 inputtedNums.push(inputted[index]);
             }
         }
-        // this is to keep the cursor at the location it's supposed to be at by adjusting the inputTimer's cursor to match the digit spans
-        for (var i = 0; i < inputtedNums.length; i++) {
-            if (inputtedNums[i] == cursorLocation) {
-                document.getElementById("timerInput").setSelectionRange(i + 1, i + 1);
-            }
-        }
-        console.log(document.getElementById("timerInput").value);
-        console.log(cursorLocation);
-        console.log(inputtedNums);
-    };
+        keepCursor();
+        inputted =  Array.prototype.slice.call(document.getElementsByClassName("timerInputted"));
+    }
     
     // go into input mode when the user tries to click on the finalTimer
     document.getElementById("finalTimer").onclick = function() {
@@ -387,5 +372,13 @@ function moveCursor(digit) {
         cursorLocation = document.getElementById(inputtedNums[0].id.slice(0, -1) + newDigitNum);
         document.getElementById("timerInput").setSelectionRange(0, 0);
     }
-    console.log(cursorLocation);
+}
+
+// this function is to keep the cursor at the location it's supposed to be at by adjusting the inputTimer's cursor to match the digit spans
+function keepCursor() {
+    for (var i = 0; i < inputtedNums.length; i++) {
+        if (inputtedNums[i] == cursorLocation) {
+            document.getElementById("timerInput").setSelectionRange(i + 1, i + 1);
+        }
+    }
 }
