@@ -78,7 +78,8 @@ window.onload = function () {
     cursorLocation = document.getElementById("digitSec");
     // event handler to restrict the input for the timer, also to update the timerDigits 
     document.getElementById("timerInput").oninput = function (event) {
-        console.log(inputtedNums);
+        updateDigits();
+        updateInputted();
         // timerInputVal is the numbers the users have inputted
         var timerInputVal = document.getElementById("timerInput").value;
         // regex for whether a string contains only numbers
@@ -88,18 +89,20 @@ window.onload = function () {
         }
         // if they user doesn't input a number
         if (!timerInputVal.match(regex)){
-            console.log("not a number");
-            console.log(inputtedNums);
             // remove the character just inputted
             // removing a character in
-            if (cursorLocation == document.getElementById("digitSec") || !inputtedNums.includes(cursorLocation)) {
+            console.log(inputtedNums[0].classList.contains("cursorSpecial"))
+            if (cursorLocation == document.getElementById("digitSec") || inputtedNums[1].classList.contains("cursorSpecial")) {
+                console.log("coolio")
                 document.getElementById("timerInput").value = timerInputVal.slice(1, timerInputVal.length);
                 document.getElementById("timerInput").setSelectionRange(0, 0);
                 console.log("this one");
             } else {
-                var combined = (timerInputVal.slice(0, inputtedNums.indexOf(cursorLocation) + 1) + timerInputVal.slice((inputtedNums.indexOf(cursorLocation) + 2), timerInputVal.length));
-                document.getElementById("timerInput").value = timerInputVal.slice(0, inputtedNums.indexOf(cursorLocation) + 1) + timerInputVal.slice((inputtedNums.indexOf(cursorLocation) + 2), timerInputVal.length);
+                console.log("check")
+                document.getElementById("timerInput").value =  (timerInputVal.slice(0, inputtedNums.indexOf(cursorLocation)) + timerInputVal.slice((inputtedNums.indexOf(cursorLocation) + 1), timerInputVal.length));
             }
+            updateDigits();
+            updateInputted();
             keepCursor();
             return false;
         }
@@ -335,6 +338,7 @@ function updateDigits() {
 
 // function to move the timer cursor arround
 function moveCursor(digit) {
+    console.log("oranges");
     // get the current location of the cursor
     var current = document.getElementsByClassName("timerCursor")[0];
     // check if the digit the user click one has been one that the user has inputted and it's not a special digit
@@ -379,6 +383,19 @@ function keepCursor() {
     for (var i = 0; i < inputtedNums.length; i++) {
         if (inputtedNums[i] == cursorLocation) {
             document.getElementById("timerInput").setSelectionRange(i + 1, i + 1);
+        }
+    }
+}
+
+// function for updating the inputtedNums array to reflect the current things that have but inputtted
+function updateInputted() {
+    // get element's of html digits (including h,m,s) that have been inputted and stores it as an array
+    var inputted =  Array.prototype.slice.call(document.getElementsByClassName("timerInputted"));
+    inputtedNums = [];
+    // then we remove the (h,m,s) and just put the digits elments into inputted
+    for (var index = 0; index < inputted.length; index++){
+        if (inputted[index].id !== "digitH" && inputted[index].id !== "digitM" && inputted[index].id !== "digitSec") {
+            inputtedNums.push(inputted[index]);
         }
     }
 }
