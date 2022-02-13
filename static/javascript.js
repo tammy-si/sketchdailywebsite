@@ -99,6 +99,7 @@ window.onload = function () {
                 console.log("check")
                 document.getElementById("timerInput").value =  (timerInputVal.slice(0, inputtedNums.indexOf(cursorLocation)) + timerInputVal.slice((inputtedNums.indexOf(cursorLocation) + 1), timerInputVal.length));
             }
+            console.log(cursorLocation);
             updateDigits();
             updateInputted();
             keepCursor();
@@ -385,10 +386,15 @@ function moveCursor(digit) {
 
 // this function is to keep the cursor at the location it's supposed to be at by adjusting the inputTimer's cursor to match the digit spans
 function keepCursor() {
+    console.log(inputtedNums);
+    console.log(cursorLocation);
     for (var i = 0; i < inputtedNums.length; i++) {
         if (inputtedNums[i] == cursorLocation) {
             document.getElementById("timerInput").setSelectionRange(i + 1, i + 1);
         }
+    }
+    if (!inputtedNums.includes(cursorLocation)) {
+        document.getElementById("timerInput").setSelectionRange(0, 0);
     }
 }
 
