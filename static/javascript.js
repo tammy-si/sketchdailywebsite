@@ -106,8 +106,10 @@ window.onload = function () {
             keepCursor();
             return false;
         }
+        console.log(timerInputVal.length);
         // for if the user adds more than the max amount of digits
         if (timerInputVal.length > 6) {
+            console.log("rolly");
             // remove the first digit and move the timer caret
             document.getElementById("timerInput").value = timerInputVal.slice(1, timerInputVal.length);
         }
@@ -301,6 +303,9 @@ function fixHeader() {
 // code to update the timerDigits
 function updateDigits() {
     let timerInputVal = document.getElementById("timerInput").value;
+    if (timerInputVal.length > 6) {
+        return;
+    }
     if (timerInputVal.length == 0) {
         document.getElementById("digitH").classList.remove("timerInputted");
         document.getElementById("digitM").classList.remove("timerInputted");
