@@ -90,8 +90,6 @@ window.onload = function () {
         // if they user doesn't input a number
         if (!timerInputVal.match(regex)){
             // remove the character just inputted
-            // removing a character in
-            console.log(inputtedNums[0].classList.contains("cursorSpecial"))
             if (cursorLocation == document.getElementById("digitSec") || inputtedNums[1].classList.contains("cursorSpecial")) {
                 console.log("coolio")
                 document.getElementById("timerInput").value = timerInputVal.slice(1, timerInputVal.length);
@@ -371,6 +369,8 @@ function moveCursor(digit) {
         if (inputtedNums.length == 0) {
             document.getElementById("digitSec").classList.add("timerCursor");
             document.getElementById("digitSec").classList.add("cursorSpecial");
+            document.getElementById("timerInput").setSelectionRange(0, 0);
+            return;
         } else {
             // get the front number inputted and make it a special cursor so that the dash is in front
             inputtedNums[0].classList.add("timerCursor");
