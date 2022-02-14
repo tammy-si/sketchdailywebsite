@@ -388,6 +388,10 @@ function moveCursor(digit) {
 function keepCursor() {
     console.log(inputtedNums);
     console.log(cursorLocation);
+    if (cursorLocation == document.getElementById("digitSec")) {
+        document.getElementById("timerInput").setSelectionRange(inputtedNums.length, inputtedNums.length);
+        return;
+    }
     for (var i = 0; i < inputtedNums.length; i++) {
         if (inputtedNums[i] == cursorLocation) {
             document.getElementById("timerInput").setSelectionRange(i + 1, i + 1);
@@ -395,7 +399,7 @@ function keepCursor() {
     }
     if (!inputtedNums.includes(cursorLocation)) {
         document.getElementById("timerInput").setSelectionRange(0, 0);
-    }
+    } 
 }
 
 // function for updating the inputtedNums array to reflect the current things that have but inputtted
