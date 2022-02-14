@@ -90,11 +90,13 @@ window.onload = function () {
         // if they user doesn't input a number
         if (!timerInputVal.match(regex)){
             // remove the character just inputted
-            if (cursorLocation == document.getElementById("digitSec") || inputtedNums[1].classList.contains("cursorSpecial")) {
+            if (inputtedNums[1].classList.contains("cursorSpecial")) {
                 console.log("coolio")
                 document.getElementById("timerInput").value = timerInputVal.slice(1, timerInputVal.length);
                 document.getElementById("timerInput").setSelectionRange(0, 0);
-                console.log("this one");
+            } else if (cursorLocation == document.getElementById("digitSec")) {
+                console.log("tricks");
+                document.getElementById("timerInput").value = timerInputVal.slice(0, timerInputVal.length - 1);
             } else {
                 console.log("check")
                 document.getElementById("timerInput").value =  (timerInputVal.slice(0, inputtedNums.indexOf(cursorLocation)) + timerInputVal.slice((inputtedNums.indexOf(cursorLocation) + 1), timerInputVal.length));
