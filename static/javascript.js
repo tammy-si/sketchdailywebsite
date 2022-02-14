@@ -82,6 +82,7 @@ window.onload = function () {
         updateInputted();
         // timerInputVal is the numbers the users have inputted
         var timerInputVal = document.getElementById("timerInput").value;
+        console.log(timerInputVal)
         // regex for whether a string contains only numbers
         var regex = /^\d+$/;
         if (timerInputVal.length == 0) {
@@ -90,10 +91,14 @@ window.onload = function () {
         // if they user doesn't input a number
         if (!timerInputVal.match(regex)){
             // remove the character just inputted
-            if (inputtedNums[1].classList.contains("cursorSpecial")) {
+            // in case the user has already has 6 digits and user tried to input 1 more, we can't use inputtedNums cause inputted nums woulnd't have the digit that went off the screen
+            if (timerInputVal.length == 7) {
+                document.getElementById("timerInput").value = timerInputVal.slice(0, inputtedNums.indexOf(cursorLocation) + 1) + timerInputVal.slice((inputtedNums.indexOf(cursorLocation) + 2), timerInputVal.length + 1);
+            } else if (inputtedNums[1].classList.contains("cursorSpecial")) {
                 console.log("coolio")
                 document.getElementById("timerInput").value = timerInputVal.slice(1, timerInputVal.length);
                 document.getElementById("timerInput").setSelectionRange(0, 0);
+            // for when at the very start and the user hasn't clicked off the default cursor placement
             } else if (cursorLocation == document.getElementById("digitSec")) {
                 console.log("tricks");
                 document.getElementById("timerInput").value = timerInputVal.slice(0, timerInputVal.length - 1);
@@ -116,15 +121,7 @@ window.onload = function () {
         }
         // update the timerDigits
         updateDigits();
-        // get element's of html digits (including h,m,s) that have been inputted and stores it as an array
-        var inputted =  Array.prototype.slice.call(document.getElementsByClassName("timerInputted"));
-        inputtedNums = [];
-        // then we remove the (h,m,s) and just put the digits elments into inputted
-        for (var index = 0; index < inputted.length; index++){
-            if (inputted[index].id !== "digitH" && inputted[index].id !== "digitM" && inputted[index].id !== "digitSec") {
-                inputtedNums.push(inputted[index]);
-            }
-        }
+        updateInputted();
         keepCursor();
         inputted =  Array.prototype.slice.call(document.getElementsByClassName("timerInputted"));
     }
