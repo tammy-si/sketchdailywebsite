@@ -94,14 +94,14 @@ window.onload = function () {
             // in case the user has already has 6 digits and user tried to input 1 more, we can't use inputtedNums cause inputted nums woulnd't have the digit that went off the screen
             if (timerInputVal.length == 7) {
                 document.getElementById("timerInput").value = timerInputVal.slice(0, inputtedNums.indexOf(cursorLocation) + 1) + timerInputVal.slice((inputtedNums.indexOf(cursorLocation) + 2), timerInputVal.length + 1);
+                        // for when at the very start and the user hasn't clicked off the default cursor placement
+            } else if (cursorLocation == document.getElementById("digitSec")) {
+                console.log("tricks");
+                document.getElementById("timerInput").value = timerInputVal.slice(0, timerInputVal.length - 1);
             } else if (inputtedNums[1].classList.contains("cursorSpecial")) {
                 console.log("coolio")
                 document.getElementById("timerInput").value = timerInputVal.slice(1, timerInputVal.length);
                 document.getElementById("timerInput").setSelectionRange(0, 0);
-            // for when at the very start and the user hasn't clicked off the default cursor placement
-            } else if (cursorLocation == document.getElementById("digitSec")) {
-                console.log("tricks");
-                document.getElementById("timerInput").value = timerInputVal.slice(0, timerInputVal.length - 1);
             } else {
                 console.log("check")
                 document.getElementById("timerInput").value =  (timerInputVal.slice(0, inputtedNums.indexOf(cursorLocation)) + timerInputVal.slice((inputtedNums.indexOf(cursorLocation) + 1), timerInputVal.length));
@@ -135,6 +135,7 @@ window.onload = function () {
     document.getElementById("timerInput").onfocus = function () {
         document.getElementById("finalTimer").style.display = "none";
     }
+
     // when the user is currenlty clicking while they're in input mode
     document.getElementById("timerInput").onblur = function () {
         // if they user is clicking off the input box, go off input mode and display the final time
