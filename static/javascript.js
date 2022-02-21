@@ -150,6 +150,8 @@ window.onload = function () {
         // if they user is clicking off the input box, go off input mode and display the final time
         if (mouseOverDigits == false) {
             document.getElementById("finalTimer").style.display = "initial";
+            console.log(inputtedNums);
+            document.getElementById("finalTimer").value = setInitalTime();
         }
         else {
             document.getElementById("timerInput").focus();
@@ -424,7 +426,23 @@ function updateInputted() {
     }
 }
 
-// to change the final timer to reflect the current time
-function setTime() {
-
+// to change the finalTimer to the initial timer inputted by the user
+function setInitalTime() {
+    var userInput = document.getElementById("timerInput").value;
+    var ogLength = userInput.length;
+    // based on the value in timerInput
+    for (var i = 0; i < (6 - ogLength); i++) {
+        userInput = "0" + userInput;
+    }
+    console.log(userInput);
+    var secs = (userInput[4] + userInput[5]) % 60;
+    // mins is what is the mins area, plus the overflow from the secs area
+    var mins  = ((userInput[2] + userInput[3]) % 60) + Math.floor((userInput[4] + userInput[5]) / 60);
+    var hours = ((userInput[0] + userInput[1]) % 60) + Math.floor((userInput[2] + userInput[3]) / 60);
+    console.log(secs);
+    console.log(mins);
+    console.log(hours);
+    // now that we have the secs, mins, and hours we can get the total time in secs 
+    initialTime = hours * 3600 + mins * 60 + secs;
+    document.getElementById("finalTimer").innerHTML = String(hours).padStart(2, "0") + "h " + String(mins).padStart(2, "0") + "m " + String(secs).padStart(2, "0") + "s";
 }

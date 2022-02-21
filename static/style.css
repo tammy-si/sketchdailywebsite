@@ -335,6 +335,8 @@ tr {
     bottom: -50px;
     left: 98px;
     z-index: 3;
+    color: black;
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
 }
 
 .finalTimer span {
