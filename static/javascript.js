@@ -13,6 +13,8 @@ var mouseOverDigits = false;
 var cursorLocation;
 // inputtedNums will holds only the numbers the user has inputted as a list.
 var inputtedNums = [];
+// global variables we have to keep track of for the timer. Time in is in seconds so. 300 -> 5 minutes
+var initialTime = 300;
 
  // when we hover over a picture
 function onHover(pic) {
@@ -129,6 +131,13 @@ window.onload = function () {
     // go into input mode when the user tries to click on the finalTimer
     document.getElementById("finalTimer").onclick = function() {
         document.getElementById("timerInput").focus();
+        // clear the input from before
+        inputtedNums = [];
+        document.getElementById("timerInput").value = "";
+        updateDigits();
+        updateInputted();
+        cursorLocation = document.getElementById("digitSec");
+        keepCursor();
     }
 
     // when the user is currently trying to input numbers into timer
@@ -413,4 +422,9 @@ function updateInputted() {
             inputtedNums.push(inputted[index]);
         }
     }
+}
+
+// to change the final timer to reflect the current time
+function setTime() {
+
 }
