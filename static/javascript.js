@@ -131,13 +131,6 @@ window.onload = function () {
     // go into input mode when the user tries to click on the finalTimer
     document.getElementById("finalTimer").onclick = function() {
         document.getElementById("timerInput").focus();
-        // clear the input from before
-        inputtedNums = [];
-        document.getElementById("timerInput").value = "";
-        updateDigits();
-        updateInputted();
-        cursorLocation = document.getElementById("digitSec");
-        keepCursor();
     }
 
     // when the user is currently trying to input numbers into timer
@@ -444,5 +437,10 @@ function setInitalTime() {
     console.log(hours);
     // now that we have the secs, mins, and hours we can get the total time in secs 
     initialTime = hours * 3600 + mins * 60 + secs;
+    console.log(initialTime);
     document.getElementById("finalTimer").innerHTML = String(hours).padStart(2, "0") + "h " + String(mins).padStart(2, "0") + "m " + String(secs).padStart(2, "0") + "s";
+}
+
+function updateTime() {
+
 }
