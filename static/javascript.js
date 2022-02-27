@@ -15,6 +15,7 @@ var cursorLocation;
 var inputtedNums = [];
 // global variables we have to keep track of for the timer. Time in is in seconds so. 300 -> 5 minutes
 var initialTime = 300;
+var backgroundOff;
 
  // when we hover over a picture
 function onHover(pic) {
@@ -78,13 +79,14 @@ function enlargeImage(originalPic) {
 // need the window.onload because otherwise the functions might run before the DOM fully loads
 window.onload = function () {
     cursorLocation = document.getElementById("digitSec");
+
     // event handler to restrict the input for the timer, also to update the timerDigits 
     document.getElementById("timerInput").oninput = function (event) {
+        console.log(cursorLocation);
         updateDigits();
         updateInputted();
         // timerInputVal is the numbers the users have inputted
         var timerInputVal = document.getElementById("timerInput").value;
-        console.log(timerInputVal)
         // regex for whether a string contains only numbers
         var regex = /^\d+$/;
         if (timerInputVal.length == 0) {
@@ -92,45 +94,66 @@ window.onload = function () {
         }
         // if they user doesn't input a number
         if (!timerInputVal.match(regex)){
+            console.log("where");
             // remove the character just inputted
             // in case the user has already has 6 digits and user tried to input 1 more, we can't use inputtedNums cause inputted nums woulnd't have the digit that went off the screen
             if (timerInputVal.length == 7) {
                 document.getElementById("timerInput").value = timerInputVal.slice(0, inputtedNums.indexOf(cursorLocation) + 1) + timerInputVal.slice((inputtedNums.indexOf(cursorLocation) + 2), timerInputVal.length + 1);
-                        // for when at the very start and the user hasn't clicked off the default cursor placement
+            // for when at the very start and the user hasn't clicked off the default cursor placement
             } else if (cursorLocation == document.getElementById("digitSec")) {
-                console.log("tricks");
                 document.getElementById("timerInput").value = timerInputVal.slice(0, timerInputVal.length - 1);
             } else if (inputtedNums[1].classList.contains("cursorSpecial")) {
-                console.log("coolio")
                 document.getElementById("timerInput").value = timerInputVal.slice(1, timerInputVal.length);
                 document.getElementById("timerInput").setSelectionRange(0, 0);
             } else {
-                console.log("check")
                 document.getElementById("timerInput").value =  (timerInputVal.slice(0, inputtedNums.indexOf(cursorLocation)) + timerInputVal.slice((inputtedNums.indexOf(cursorLocation) + 1), timerInputVal.length));
             }
-            console.log(cursorLocation);
             updateDigits();
             updateInputted();
             keepCursor();
+            console.log(document.getElementById("timerInput").value);
             return false;
         }
-        console.log(timerInputVal.length);
         // for if the user adds more than the max amount of digits
         if (timerInputVal.length > 6) {
-            console.log("rolly");
             // remove the first digit and move the timer caret
             document.getElementById("timerInput").value = timerInputVal.slice(1, timerInputVal.length);
         }
+        // when users has entered in a valid number and it's the first input since the user just clicked back onto the timer
+        if (backgroundOff == true) {
+            console.log(document.getElementById("timerInput").value)
+            // clear everything and turn the background mode Off and continue normal timer input
+            document.getElementById("timerInput").value = document.getElementById("timerInput").value.slice(-1);
+            backgroundOff = false;
+            // remove all the 0.5 opacitys from when it was on background mode
+            var inputted = Array.prototype.slice.call(document.getElementsByClassName("timerInputted"));
+            inputted.forEach(digit => digit.style.opacity = null);
+        }
+        console.log(document.getElementById("timerInput").value);
         // update the timerDigits
         updateDigits();
         updateInputted();
         keepCursor();
-        inputted =  Array.prototype.slice.call(document.getElementsByClassName("timerInputted"));
     }
     
     // go into input mode when the user tries to click on the finalTimer
     document.getElementById("finalTimer").onclick = function() {
         document.getElementById("timerInput").focus();
+        // move the cursor back to the beginning by removing the old one and putting the new one onto digitSec
+        document.getElementsByClassName("timerCursor")[0].classList.remove('timerCursor');
+        document.getElementById("digitSec").classList.add("timerCursor");
+        document.getElementById("digitSec").classList.add("cursorSpecial");
+        cursorLocation = document.getElementById('digitSec');
+        keepCursor();
+        console.log(cursorLocation);
+        backgroundOff = true;
+        // turn make the digitSpans in the back not look like they were inputted
+        console.log(document.getElementsByClassName("timerInputted"));
+        var allInputted = Array.from(document.getElementsByClassName("timerInputted"));
+        for (var i = 0; i < allInputted.length - 1; i++) {
+            allInputted[i].style.opacity = 0.5;
+        }
+        console.log(document.getElementById('timerInput').value);
     }
 
     // when the user is currently trying to input numbers into timer
@@ -143,7 +166,6 @@ window.onload = function () {
         // if they user is clicking off the input box, go off input mode and display the final time
         if (mouseOverDigits == false) {
             document.getElementById("finalTimer").style.display = "initial";
-            console.log(inputtedNums);
             document.getElementById("finalTimer").value = setInitalTime();
         }
         else {
@@ -346,7 +368,12 @@ function updateDigits() {
 
 // function to move the timer cursor arround
 function moveCursor(digit) {
-    console.log("oranges");
+    console.log("move cursor called");
+    // if the background of the timer digit is off (when the user clicks back into the timer), do nothoing
+    if (backgroundOff == true) {
+        return;
+    }
+    console.log("passed");
     // get the current location of the cursor
     var current = document.getElementsByClassName("timerCursor")[0];
     // check if the digit the user click one has been one that the user has inputted and it's not a special digit
@@ -390,8 +417,6 @@ function moveCursor(digit) {
 
 // this function is to keep the cursor at the location it's supposed to be at by adjusting the inputTimer's cursor to match the digit spans
 function keepCursor() {
-    console.log(inputtedNums);
-    console.log(cursorLocation);
     if (cursorLocation == document.getElementById("digitSec")) {
         document.getElementById("timerInput").setSelectionRange(inputtedNums.length, inputtedNums.length);
         return;
@@ -427,17 +452,12 @@ function setInitalTime() {
     for (var i = 0; i < (6 - ogLength); i++) {
         userInput = "0" + userInput;
     }
-    console.log(userInput);
     var secs = (userInput[4] + userInput[5]) % 60;
     // mins is what is the mins area, plus the overflow from the secs area
     var mins  = ((userInput[2] + userInput[3]) % 60) + Math.floor((userInput[4] + userInput[5]) / 60);
     var hours = ((userInput[0] + userInput[1]) % 60) + Math.floor((userInput[2] + userInput[3]) / 60);
-    console.log(secs);
-    console.log(mins);
-    console.log(hours);
     // now that we have the secs, mins, and hours we can get the total time in secs 
     initialTime = hours * 3600 + mins * 60 + secs;
-    console.log(initialTime);
     document.getElementById("finalTimer").innerHTML = String(hours).padStart(2, "0") + "h " + String(mins).padStart(2, "0") + "m " + String(secs).padStart(2, "0") + "s";
 }
 
