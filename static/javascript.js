@@ -82,7 +82,6 @@ window.onload = function () {
 
     // event handler to restrict the input for the timer, also to update the timerDigits 
     document.getElementById("timerInput").oninput = function (event) {
-        console.log(cursorLocation);
         updateDigits();
         updateInputted();
         // timerInputVal is the numbers the users have inputted
@@ -95,13 +94,15 @@ window.onload = function () {
         // if they user doesn't input a number
         if (!timerInputVal.match(regex)){
             console.log("where");
+            console.log(cursorLocation);
             // remove the character just inputted
-            // in case the user has already has 6 digits and user tried to input 1 more, we can't use inputtedNums cause inputted nums woulnd't have the digit that went off the screen
-            if (timerInputVal.length == 7) {
-                document.getElementById("timerInput").value = timerInputVal.slice(0, inputtedNums.indexOf(cursorLocation) + 1) + timerInputVal.slice((inputtedNums.indexOf(cursorLocation) + 2), timerInputVal.length + 1);
-            // for when at the very start and the user hasn't clicked off the default cursor placement
-            } else if (cursorLocation == document.getElementById("digitSec")) {
+            // for when user hasn't clicked off the default cursor placement
+            if (cursorLocation == document.getElementById("digitSec")) {
                 document.getElementById("timerInput").value = timerInputVal.slice(0, timerInputVal.length - 1);
+            // in case the user has already has 6 digits and user tried to input 1 more, we can't use inputtedNums cause inputted nums woulnd't have the digit that went off the screen
+            } else if (timerInputVal.length == 7) {
+                document.getElementById("timerInput").value = timerInputVal.slice(0, inputtedNums.indexOf(cursorLocation) + 1) + timerInputVal.slice((inputtedNums.indexOf(cursorLocation) + 2), timerInputVal.length + 1);
+            // for when user clicks in front of the inputted nums
             } else if (inputtedNums[1].classList.contains("cursorSpecial")) {
                 document.getElementById("timerInput").value = timerInputVal.slice(1, timerInputVal.length);
                 document.getElementById("timerInput").setSelectionRange(0, 0);
@@ -114,6 +115,7 @@ window.onload = function () {
             console.log(document.getElementById("timerInput").value);
             return false;
         }
+        console.log(timerInputVal);
         // for if the user adds more than the max amount of digits
         if (timerInputVal.length > 6) {
             // remove the first digit and move the timer caret
@@ -145,7 +147,6 @@ window.onload = function () {
         document.getElementById("digitSec").classList.add("cursorSpecial");
         cursorLocation = document.getElementById('digitSec');
         keepCursor();
-        console.log(cursorLocation);
         backgroundOff = true;
         // turn make the digitSpans in the back not look like they were inputted
         console.log(document.getElementsByClassName("timerInputted"));
