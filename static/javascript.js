@@ -459,6 +459,8 @@ function setInitalTime() {
     // now that we have the secs, mins, and hours we can get the total time in secs 
     initialTime = hours * 3600 + mins * 60 + secs;
     document.getElementById("finalTimer").innerHTML = String(hours).padStart(2, "0") + "h " + String(mins).padStart(2, "0") + "m " + String(secs).padStart(2, "0") + "s";
+    document.getElementById("timerInput").value = parseInt(String(hours).padStart(2, "0") + String(mins).padStart(2, "0") + String(secs).padStart(2, "0"));
+    updateDigits();
 }
 
 function updateTime() {
