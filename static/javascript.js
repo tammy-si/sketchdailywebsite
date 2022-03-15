@@ -174,6 +174,18 @@ window.onload = function () {
         }
     }
 
+    // when the user wants to start the timer by pressing start button
+    document.getElementById("timerStart").onclick = function () {
+        document.getElementById("timerStart").style.display = "none";
+        document.getElementById("timerStop").style.display = "";
+    }
+
+    // when the user wants to stop the timer by pressing stop button
+    document.getElementById("timerStop").onclick = function () {
+        document.getElementById("timerStart").style.display = "";
+        document.getElementById("timerStop").style.display = "none";
+    }
+
     // to keep track if the user is clicking off the input box or not. 
     document.getElementById("timerDigits").onmouseover = function() {
         mouseOverDigits = true;
@@ -465,5 +477,5 @@ function setInitalTime() {
 }
 
 function updateTime() {
-
+    console.log("update");
 }
