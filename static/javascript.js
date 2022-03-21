@@ -15,7 +15,9 @@ var cursorLocation;
 var inputtedNums = [];
 // global variables we have to keep track of for the timer. Time in is in seconds so. 300 -> 5 minutes
 var initialTime = 300;
+var currentTime = 300;
 var backgroundOff;
+var initialTimeFlag = true;
 
  // when we hover over a picture
 function onHover(pic) {
@@ -127,6 +129,7 @@ window.onload = function () {
             // clear everything and turn the background mode Off and continue normal timer input
             document.getElementById("timerInput").value = document.getElementById("timerInput").value.slice(-1);
             backgroundOff = false;
+            initialTimeFlag = true;
             // remove all the 0.5 opacitys from when it was on background mode
             var inputted = Array.prototype.slice.call(document.getElementsByClassName("timerInputted"));
             inputted.forEach(digit => digit.style.opacity = null);
@@ -166,8 +169,15 @@ window.onload = function () {
     document.getElementById("timerInput").onblur = function () {
         // if they user is clicking off the input box, go off input mode and display the final time
         if (mouseOverDigits == false) {
+            console.log(document.getElementById("timerInput").value);
+            console.log(initialTimeFlag);
             document.getElementById("finalTimer").style.display = "initial";
-            document.getElementById("finalTimer").value = setInitalTime();
+            // check if a new initial time should be set
+            if (initialTimeFlag == true) {
+                setInitalTime();
+                initialTimeFlag = false;
+            }
+            console.log(currentTime, initialTime);
         }
         else {
             document.getElementById("timerInput").focus();
@@ -471,6 +481,7 @@ function setInitalTime() {
     var hours = ((userInput[0] + userInput[1]) % 60) + Math.floor((userInput[2] + userInput[3]) / 60);
     // now that we have the secs, mins, and hours we can get the total time in secs 
     initialTime = hours * 3600 + mins * 60 + secs;
+    currentTime = initialTime;
     document.getElementById("finalTimer").innerHTML = String(hours).padStart(2, "0") + "h " + String(mins).padStart(2, "0") + "m " + String(secs).padStart(2, "0") + "s";
     document.getElementById("timerInput").value = parseInt(String(hours).padStart(2, "0") + String(mins).padStart(2, "0") + String(secs).padStart(2, "0"));
     updateDigits();
