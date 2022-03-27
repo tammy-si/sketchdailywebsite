@@ -6,8 +6,6 @@ let mainflag = false;
 let altflag = false;
 // check if a picture has been enlarged
 var englarge = false;
-// default time for the timer is 5 mins (which is 300 secs). time is in seconds
-var time = 300;
 var mouseOverDigits = false;
 // to keep track of the cursor location in the timer by remebering with span digit the cursor is supposed to be on.
 var cursorLocation;
@@ -188,6 +186,7 @@ window.onload = function () {
     document.getElementById("timerStart").onclick = function () {
         document.getElementById("timerStart").style.display = "none";
         document.getElementById("timerStop").style.display = "";
+        setInterval(updateTimer(), 1000);
     }
 
     // when the user wants to stop the timer by pressing stop button
@@ -475,10 +474,17 @@ function setInitalTime() {
     for (var i = 0; i < (6 - ogLength); i++) {
         userInput = "0" + userInput;
     }
+    console.log(userInput)
     var secs = (userInput[4] + userInput[5]) % 60;
+    console.log(secs)
     // mins is what is the mins area, plus the overflow from the secs area
-    var mins  = ((userInput[2] + userInput[3]) % 60) + Math.floor((userInput[4] + userInput[5]) / 60);
-    var hours = ((userInput[0] + userInput[1]) % 60) + Math.floor((userInput[2] + userInput[3]) / 60);
+    var mins  = (((userInput[2] + userInput[3]) % 60) + Math.floor((userInput[4] + userInput[5]) / 60)) % 60;
+    console.log(mins)
+    var hours = (parseInt(userInput[0] + userInput[1])) + Math.floor((((userInput[2] + userInput[3]) + (userInput[4] + userInput[5])) / 60)/ 60);
+    console.log(hours)
+    if (hours >= 100) {
+        hours = 99;
+    }
     // now that we have the secs, mins, and hours we can get the total time in secs 
     initialTime = hours * 3600 + mins * 60 + secs;
     currentTime = initialTime;
