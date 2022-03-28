@@ -93,8 +93,6 @@ window.onload = function () {
         }
         // if they user doesn't input a number
         if (!timerInputVal.match(regex)){
-            console.log("where");
-            console.log(cursorLocation);
             // remove the character just inputted
             // for when user hasn't clicked off the default cursor placement
             if (cursorLocation == document.getElementById("digitSec")) {
@@ -112,10 +110,8 @@ window.onload = function () {
             updateDigits();
             updateInputted();
             keepCursor();
-            console.log(document.getElementById("timerInput").value);
             return false;
         }
-        console.log(timerInputVal);
         // for if the user adds more than the max amount of digits
         if (timerInputVal.length > 6) {
             // remove the first digit and move the timer caret
@@ -123,7 +119,6 @@ window.onload = function () {
         }
         // when users has entered in a valid number and it's the first input since the user just clicked back onto the timer
         if (backgroundOff == true) {
-            console.log(document.getElementById("timerInput").value)
             // clear everything and turn the background mode Off and continue normal timer input
             document.getElementById("timerInput").value = document.getElementById("timerInput").value.slice(-1);
             backgroundOff = false;
@@ -132,7 +127,6 @@ window.onload = function () {
             var inputted = Array.prototype.slice.call(document.getElementsByClassName("timerInputted"));
             inputted.forEach(digit => digit.style.opacity = null);
         }
-        console.log(document.getElementById("timerInput").value);
         // update the timerDigits
         updateDigits();
         updateInputted();
@@ -150,12 +144,10 @@ window.onload = function () {
         keepCursor();
         backgroundOff = true;
         // turn make the digitSpans in the back not look like they were inputted
-        console.log(document.getElementsByClassName("timerInputted"));
         var allInputted = Array.from(document.getElementsByClassName("timerInputted"));
         for (var i = 0; i < allInputted.length - 1; i++) {
             allInputted[i].style.opacity = 0.5;
         }
-        console.log(document.getElementById('timerInput').value);
     }
 
     // when the user is currently trying to input numbers into timer
@@ -167,15 +159,12 @@ window.onload = function () {
     document.getElementById("timerInput").onblur = function () {
         // if they user is clicking off the input box, go off input mode and display the final time
         if (mouseOverDigits == false) {
-            console.log(document.getElementById("timerInput").value);
-            console.log(initialTimeFlag);
             document.getElementById("finalTimer").style.display = "initial";
             // check if a new initial time should be set
             if (initialTimeFlag == true) {
                 setInitalTime();
                 initialTimeFlag = false;
             }
-            console.log(currentTime, initialTime);
         }
         else {
             document.getElementById("timerInput").focus();
@@ -390,12 +379,10 @@ function updateDigits() {
 
 // function to move the timer cursor arround
 function moveCursor(digit) {
-    console.log("move cursor called");
     // if the background of the timer digit is off (when the user clicks back into the timer), do nothoing
     if (backgroundOff == true) {
         return;
     }
-    console.log("passed");
     // get the current location of the cursor
     var current = document.getElementsByClassName("timerCursor")[0];
     // check if the digit the user click one has been one that the user has inputted and it's not a special digit
@@ -474,14 +461,10 @@ function setInitalTime() {
     for (var i = 0; i < (6 - ogLength); i++) {
         userInput = "0" + userInput;
     }
-    console.log(userInput)
     var secs = (userInput[4] + userInput[5]) % 60;
-    console.log(secs)
     // mins is what is the mins area, plus the overflow from the secs area
     var mins  = (((userInput[2] + userInput[3]) % 60) + Math.floor((userInput[4] + userInput[5]) / 60)) % 60;
-    console.log(mins)
     var hours = (parseInt(userInput[0] + userInput[1])) + Math.floor((((userInput[2] + userInput[3]) + (userInput[4] + userInput[5])) / 60)/ 60);
-    console.log(hours)
     if (hours >= 100) {
         hours = 99;
     }
@@ -491,6 +474,7 @@ function setInitalTime() {
     document.getElementById("finalTimer").innerHTML = String(hours).padStart(2, "0") + "h " + String(mins).padStart(2, "0") + "m " + String(secs).padStart(2, "0") + "s";
     document.getElementById("timerInput").value = parseInt(String(hours).padStart(2, "0") + String(mins).padStart(2, "0") + String(secs).padStart(2, "0"));
     updateDigits();
+    updateInputted();
 }
 
 function updateTime() {
