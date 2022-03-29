@@ -464,12 +464,19 @@ function setInitalTime() {
     var secs = (userInput[4] + userInput[5]) % 60;
     // mins is what is the mins area, plus the overflow from the secs area
     var mins  = (((userInput[2] + userInput[3]) % 60) + Math.floor((userInput[4] + userInput[5]) / 60)) % 60;
-    var hours = (parseInt(userInput[0] + userInput[1])) + Math.floor((((userInput[2] + userInput[3]) + (userInput[4] + userInput[5])) / 60)/ 60);
+    // for hours it's whatever in the hours section + if minutes overflowed and 
+    var hours = (parseInt(userInput[0] + userInput[1]) + Math.floor((parseInt(userInput[2] + userInput[3]) + parseInt(userInput[4] + userInput[5])/60)/60));
+    // setting a max time because for the hours to be over 100, the user must've overflowed mins and secs. So set a limit
+    console.log(Math.floor((userInput[2] + userInput[3])/60))*60 + Math.floor((userInput[4] + userInput[5])/60);
+    console.log(hours, mins, secs)
     if (hours >= 100) {
         hours = 99;
+        mins = 59;
+        secs = 59;
     }
     // now that we have the secs, mins, and hours we can get the total time in secs 
     initialTime = hours * 3600 + mins * 60 + secs;
+    console.log(initialTime);
     currentTime = initialTime;
     document.getElementById("finalTimer").innerHTML = String(hours).padStart(2, "0") + "h " + String(mins).padStart(2, "0") + "m " + String(secs).padStart(2, "0") + "s";
     document.getElementById("timerInput").value = parseInt(String(hours).padStart(2, "0") + String(mins).padStart(2, "0") + String(secs).padStart(2, "0"));
