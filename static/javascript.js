@@ -78,6 +78,7 @@ function enlargeImage(originalPic) {
 // hold event handlers for buttons that work after the window has loaded (such as the close enlarge mode button and random button)
 // need the window.onload because otherwise the functions might run before the DOM fully loads
 window.onload = function () {
+    var timerInterval;
     cursorLocation = document.getElementById("digitSec");
 
     // event handler to restrict the input for the timer, also to update the timerDigits 
@@ -153,6 +154,10 @@ window.onload = function () {
     // when the user is currently trying to input numbers into timer
     document.getElementById("timerInput").onfocus = function () {
         document.getElementById("finalTimer").style.display = "none";
+        // stops the timer
+        document.getElementById("timerStart").style.display = "";
+        document.getElementById("timerStop").style.display = "none";
+        clearInterval(timerInterval);
     }
 
     // when the user is currenlty clicking while they're in input mode
@@ -175,13 +180,35 @@ window.onload = function () {
     document.getElementById("timerStart").onclick = function () {
         document.getElementById("timerStart").style.display = "none";
         document.getElementById("timerStop").style.display = "";
-        setInterval(updateTimer(), 1000);
+        timerInterval = setInterval(updateTime, 1000);
     }
 
     // when the user wants to stop the timer by pressing stop button
     document.getElementById("timerStop").onclick = function () {
         document.getElementById("timerStart").style.display = "";
         document.getElementById("timerStop").style.display = "none";
+        clearInterval(timerInterval);
+    }
+
+    // when the user clicks the timer reset button
+    document.getElementById("timerReset").onclick = function() {
+        // stop the timer first
+        clearInterval(timerInterval);
+        document.getElementById("timerStart").style.display = "";
+        document.getElementById("timerStop").style.display = "none";
+        // then reset the time back to the initialTime
+        currentTime = initialTime;
+            // take the current time and turn it into hours, mins, and secs
+        let hours = Math.floor(currentTime/3600)
+        // after taking the amount of hours out from currenttime, we can take chunks of 60 seconds out from the remainder to get mins
+        let remainder = currentTime % 3600;
+        let mins = Math.floor((currentTime % 3600) / 60);
+        // everything left over after taking minutes out should be seconds. 
+        let secs = remainder % 60;
+        console.log(hours,mins, secs)
+        document.getElementById("finalTimer").innerHTML = String(hours).padStart(2, "0") + "h " + String(mins).padStart(2, "0") + "m " + String(secs).padStart(2, "0") + "s";
+        document.getElementById("timerInput").value = String(hours).padStart(2, "0") + String(mins).padStart(2, "0") + String(secs).padStart(2, "0");
+        updateDigits();
     }
 
     // to keep track if the user is clicking off the input box or not. 
@@ -479,11 +506,27 @@ function setInitalTime() {
     console.log(initialTime);
     currentTime = initialTime;
     document.getElementById("finalTimer").innerHTML = String(hours).padStart(2, "0") + "h " + String(mins).padStart(2, "0") + "m " + String(secs).padStart(2, "0") + "s";
-    document.getElementById("timerInput").value = parseInt(String(hours).padStart(2, "0") + String(mins).padStart(2, "0") + String(secs).padStart(2, "0"));
+    document.getElementById("timerInput").value = String(hours).padStart(2, "0") + String(mins).padStart(2, "0") + String(secs).padStart(2, "0");
     updateDigits();
-    updateInputted();
 }
 
 function updateTime() {
     console.log("update");
+    currentTime--;
+    console.log(currentTime)
+    // take the current time and turn it into hours, mins, and secs
+    let hours = Math.floor(currentTime/3600)
+    // after taking the amount of hours out from currenttime, we can take chunks of 60 seconds out from the remainder to get mins
+    let remainder = currentTime % 3600;
+    let mins = Math.floor(remainder / 60);
+    // everything left over after taking minutes out should be seconds. 
+    let secs = remainder % 60;
+    console.log(hours,mins, secs)
+    document.getElementById("finalTimer").innerHTML = String(hours).padStart(2, "0") + "h " + String(mins).padStart(2, "0") + "m " + String(secs).padStart(2, "0") + "s";
+    document.getElementById("timerInput").value = String(hours).padStart(2, "0") + String(mins).padStart(2, "0") + String(secs).padStart(2, "0");
+    updateDigits();
+    // when the timer hits 0.
+    if (currentTime == 0) {
+        // todo
+    }
 }
