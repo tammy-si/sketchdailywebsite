@@ -16,6 +16,7 @@ var initialTime = 300;
 var currentTime = 300;
 var backgroundOff;
 var initialTimeFlag = true;
+var timerInterval;
 
  // when we hover over a picture
 function onHover(pic) {
@@ -78,7 +79,6 @@ function enlargeImage(originalPic) {
 // hold event handlers for buttons that work after the window has loaded (such as the close enlarge mode button and random button)
 // need the window.onload because otherwise the functions might run before the DOM fully loads
 window.onload = function () {
-    var timerInterval;
     cursorLocation = document.getElementById("digitSec");
 
     // event handler to restrict the input for the timer, also to update the timerDigits 
@@ -527,6 +527,13 @@ function updateTime() {
     updateDigits();
     // when the timer hits 0.
     if (currentTime == 0) {
-        // todo
+        // audio by bone666138 at freesound.org
+        // https://freesound.org/people/bone666138/sounds/198841/
+        console.log('audio')
+        var audio = new Audio('static/198841__bone666138__analog-alarm-clock.wav');
+        audio.play();
+        document.getElementById("timerStart").style.display = "";
+        document.getElementById("timerStop").style.display = "none";
+        clearInterval(timerInterval);
     }
 }
