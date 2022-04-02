@@ -178,6 +178,10 @@ window.onload = function () {
 
     // when the user wants to start the timer by pressing start button
     document.getElementById("timerStart").onclick = function () {
+        // prevent users from trying to start the time when the time is 0,
+        if (currentTime == 0) {
+            return;
+        }
         document.getElementById("timerStart").style.display = "none";
         document.getElementById("timerStop").style.display = "";
         timerInterval = setInterval(updateTime, 1000);
@@ -205,9 +209,8 @@ window.onload = function () {
         let mins = Math.floor((currentTime % 3600) / 60);
         // everything left over after taking minutes out should be seconds. 
         let secs = remainder % 60;
-        console.log(hours,mins, secs)
         document.getElementById("finalTimer").innerHTML = String(hours).padStart(2, "0") + "h " + String(mins).padStart(2, "0") + "m " + String(secs).padStart(2, "0") + "s";
-        document.getElementById("timerInput").value = String(hours).padStart(2, "0") + String(mins).padStart(2, "0") + String(secs).padStart(2, "0");
+        document.getElementById("timerInput").value = parseInt(String(hours).padStart(2, "0") + String(mins).padStart(2, "0") + String(secs).padStart(2, "0"));
         updateDigits();
     }
 
@@ -494,8 +497,6 @@ function setInitalTime() {
     // for hours it's whatever in the hours section + if minutes overflowed and 
     var hours = (parseInt(userInput[0] + userInput[1]) + Math.floor((parseInt(userInput[2] + userInput[3]) + parseInt(userInput[4] + userInput[5])/60)/60));
     // setting a max time because for the hours to be over 100, the user must've overflowed mins and secs. So set a limit
-    console.log(Math.floor((userInput[2] + userInput[3])/60))*60 + Math.floor((userInput[4] + userInput[5])/60);
-    console.log(hours, mins, secs)
     if (hours >= 100) {
         hours = 99;
         mins = 59;
@@ -503,17 +504,16 @@ function setInitalTime() {
     }
     // now that we have the secs, mins, and hours we can get the total time in secs 
     initialTime = hours * 3600 + mins * 60 + secs;
-    console.log(initialTime);
     currentTime = initialTime;
     document.getElementById("finalTimer").innerHTML = String(hours).padStart(2, "0") + "h " + String(mins).padStart(2, "0") + "m " + String(secs).padStart(2, "0") + "s";
-    document.getElementById("timerInput").value = String(hours).padStart(2, "0") + String(mins).padStart(2, "0") + String(secs).padStart(2, "0");
+    document.getElementById("timerInput").value = parseInt(String(hours).padStart(2, "0") + String(mins).padStart(2, "0") + String(secs).padStart(2, "0"));
     updateDigits();
+    updateInputted();
+    keepCursor();
 }
 
 function updateTime() {
-    console.log("update");
     currentTime--;
-    console.log(currentTime)
     // take the current time and turn it into hours, mins, and secs
     let hours = Math.floor(currentTime/3600)
     // after taking the amount of hours out from currenttime, we can take chunks of 60 seconds out from the remainder to get mins
@@ -521,15 +521,13 @@ function updateTime() {
     let mins = Math.floor(remainder / 60);
     // everything left over after taking minutes out should be seconds. 
     let secs = remainder % 60;
-    console.log(hours,mins, secs)
     document.getElementById("finalTimer").innerHTML = String(hours).padStart(2, "0") + "h " + String(mins).padStart(2, "0") + "m " + String(secs).padStart(2, "0") + "s";
-    document.getElementById("timerInput").value = String(hours).padStart(2, "0") + String(mins).padStart(2, "0") + String(secs).padStart(2, "0");
+    document.getElementById("timerInput").value = parseInt(String(hours).padStart(2, "0") + String(mins).padStart(2, "0") + String(secs).padStart(2, "0"));
     updateDigits();
     // when the timer hits 0.
     if (currentTime == 0) {
         // audio by bone666138 at freesound.org
         // https://freesound.org/people/bone666138/sounds/198841/
-        console.log('audio')
         var audio = new Audio('static/198841__bone666138__analog-alarm-clock.wav');
         audio.play();
         document.getElementById("timerStart").style.display = "";
