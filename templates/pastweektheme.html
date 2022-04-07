@@ -5,6 +5,25 @@
 {% endblock %}
 
 {% block main %}
+<div class="timer">
+    <h1>Timer</h1>
+    <div class = "timerInner">
+        <div class = "timerDigits" id="timerDigits">
+            <span id = "digit5" onclick = "moveCursor(this)">0</span><span id = "digit4" onclick = "moveCursor(this)">0</span><span id = "digitH" onclick = "moveCursor(this)">h</span>
+            <span id = "digit3" onclick = "moveCursor(this)">0</span><span id = "digit2" onclick = "moveCursor(this)">5</span><span id = "digitM" onclick = "moveCursor(this)">m</span>
+            <span id = "digit1" onclick = "moveCursor(this)">0</span><span id = "digit0" onclick = "moveCursor(this)" >0</span><span id = "digitSec" onclick = "moveCursor(this)" class= "timerCursor cursorSpecial">s</span>
+        </div>
+        <div class = "finalTimer" id= "finalTimer">
+            <span>5m 00s<span>
+        </div>
+        <input id= "timerInput"></input>
+        <div class = "timerButtons">
+            <button id = "timerReset">Reset</button>
+            <button id = "timerStart" >Start</button>
+            <button id = "timerStop" style = "display: none;">Stop</button>
+        </div>
+    </div>
+</div>
 <div class="themediv">
     <div class="headings">
         <h1>Here are the theme's for the date {{ dateChoice }}</h1>
