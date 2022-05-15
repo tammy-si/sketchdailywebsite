@@ -30,17 +30,17 @@ function onHover(pic) {
     // when the user clicks on an iamge
     pic.onclick = function () {
         // loop through the storages to check if the imaged clicked on is a main theme image
-        for(let i = 0; i < mainStorage.results.length; i++) {
+        for(let i = 0; i < mainStorage.length; i++) {
             // if it is a main theme image set the image as the image to be enlarged
-            if (pic.id == mainStorage.results[i].id) {
-                document.getElementById("enlargedImg").src = mainStorage.results[i].urls["regular"];
+            if (pic.id == mainStorage[i].id) {
+                document.getElementById("enlargedImg").src = mainStorage[i].urls["regular"];
             }
         }
         // loop through the storages to check if the imaged clicked on is an alt theme image
-        for(let i = 0; i < altStorage.results.length; i++) {
+        for(let i = 0; i < altStorage.length; i++) {
             // if it is a alt theme image set the image as the image to be enlarged
-            if (pic.id == altStorage.results[i].id) {
-                document.getElementById("enlargedImg").src = altStorage.results[i].urls["regular"];
+            if (pic.id == altStorage[i].id) {
+                document.getElementById("enlargedImg").src = altStorage[i].urls["regular"];
             }
         }
         // add css to change to enlarge mode
@@ -239,12 +239,12 @@ window.onload = function () {
     // main theme random button
     document.getElementById("mainRandomButton").onclick = function() {
         // max is the total amount of main theme images we have minus 1.
-        var max = mainStorage.results.length - 1;
+        var max = mainStorage.length - 1;
         // number is random integer we get. We then use the number to index the main Storage to get a random image. 
         // set the random image to be enlarged, by putting the newly picked image into the enlarge div, enlarging the image with enlargeImage(), and adding css for the enlarge mode.
         var number = Math.floor(Math.random() * ((max + 1)));
-        document.getElementById("enlargedImg").src = mainStorage.results[number].urls["regular"];
-        enlargeImage(document.getElementById(mainStorage.results[number].id));
+        document.getElementById("enlargedImg").src = mainStorage[number].urls["regular"];
+        enlargeImage(document.getElementById(mainStorage[number].id));
         // add css to change to enlarge mode
         document.getElementById("closeButton").style.display = " initial";
         document.getElementById("cover").classList.add("covered");
@@ -256,12 +256,12 @@ window.onload = function () {
     // alternate theme random button
     document.getElementById("altRandomButton").onclick = function() {
         // max is the total amount of alternate theme images we have minus 1.
-        var max = altStorage.results.length - 1;
+        var max = altStorage.length - 1;
         // number is random integer we get. We then use the number to index the alternate Storage to get a random image. 
         // set the random image to be enlarged, by putting the newly picked image into the enlarge div, enlarging the image with enlargeImage(), and adding css for the enlarge mode.
         var number = Math.floor(Math.random() * ((max + 1)));
-        document.getElementById("enlargedImg").src = altStorage.results[number].urls["regular"];
-        enlargeImage(document.getElementById(altStorage.results[number].id));
+        document.getElementById("enlargedImg").src = altStorage[number].urls["regular"];
+        enlargeImage(document.getElementById(altStorage[number].id));
         // add css to change to enlarge mode
         document.getElementById("closeButton").style.display = "initial";
         document.getElementById("cover").classList.add("covered");
@@ -279,15 +279,26 @@ window.onload = function () {
     // connecting to the API and making a request for the API info
     const response = await fetch('https://api.unsplash.com/search/photos?per_page=30&query=' + theme +'&client_id=' + upsplash_access_key);
     // get what the server sent back (response) and then make it into json so we can read and parse
-    data = await response.json()
+    var data = await response.json()
+    // data_results is like the object that holds all the images
+    var data_results = data.results
+    // getting 4 extra pages
+    for (let i = 2; i < 6; i++) {
+        let tempResponse = await fetch('https://api.unsplash.com/search/photos?page='+i+'&per_page=30&query=' + theme +'&client_id=' + upsplash_access_key);
+        let tempData = await tempResponse.json()
+        // adding the pictures from that new page to array with the rest of the pictures
+        data_results = data_results.concat(tempData.results)
+    }
+    const response2 = await fetch('https://api.unsplash.com/search/photos?page=2&per_page=30&query=' + theme +'&client_id=' + upsplash_access_key);
+    data2 = await response2.json()
     // for just in case Upsplash doesn't have any images for the themes
-    if (data.results.length == 0) {
+    if (data_results.length == 0) {
         console.log(main ? "Upsplash has no images for today's main theme" : "Upsplash has no images for today's alternate theme");
     }
     // go through all the images we've just scrapped from upsplash
-    for (let i = 0; i < data.results.length; i ++){
+    for (let i = 0; i < data_results.length; i ++){
         // for each image we make a new image tag and add it to the html. we make sure that we give each image tag the onmouseover attribute
-        currentpic = data.results[i]
+        currentpic = data_results[i]
         var div = document.createElement("div");
         div.setAttribute("class", "imagediv");
         div.setAttribute("id", currentpic.id + "div");
@@ -323,18 +334,18 @@ window.onload = function () {
     }
     // storing info so we don't really have to request again.
     if (main == true) {
-        mainStorage = data;
+        mainStorage = data_results;
     } 
     else {
-        altStorage = data;
+        altStorage = data_results;
     }
 }
 
 // change the max height of the main theme divs
 function maxHeightMain () {
-    for (let i = 0; i < mainStorage.results.length; i ++) {
-        id = mainStorage.results[i].id
-        pic = document.getElementById(mainStorage.results[i].id)
+    for (let i = 0; i < mainStorage.length; i ++) {
+        id = mainStorage[i].id
+        pic = document.getElementById(mainStorage[i].id)
         // make the pictures div the same as the picture height
         pic.parentElement.style.maxHeight = pic.height + "px";
     }
@@ -344,9 +355,9 @@ function maxHeightMain () {
 
 // change the max height of the alt theme divs
 function maxHeightAlt () {
-    for (let i = 0; i < altStorage.results.length; i ++) {
-        id = altStorage.results[i].id
-        pic = document.getElementById(altStorage.results[i].id)
+    for (let i = 0; i < altStorage.length; i ++) {
+        id = altStorage[i].id
+        pic = document.getElementById(altStorage[i].id)
         // make the pictures div the same as the picture height
         pic.parentElement.style.maxHeight = pic.height + "px";
     }
