@@ -80,11 +80,12 @@ header {
     width: 100%;
 }
 
+/* for the buttons to get random images */
 .randomButton {
     float: right;
     cursor: pointer;
     padding: 2px;
-    margin-right: 3px;
+    margin-right: 40px;
     margin-bottom: 10px;
 }
 
@@ -95,10 +96,31 @@ header {
 }
 
 .randomButton:hover {
-    filter: grayscale(100%);
+    filter: grayscale(20%);
     color: #0088a9;
 }
 
+/* for the skip to the alternate theme buttons */
+.skipButton {
+    width: 200px;
+    height: auto;
+    cursor: pointer;
+    padding: 2px;
+    margin-left: 4px;
+}
+
+.skipButton img{
+    width: 20%;
+    height: auto;
+    float: center;
+}
+
+.skipButton:hover {
+    filter: grayscale(20%);
+    color: #0088a9;
+}
+
+/* for the images themselves */
 .mainthemepics, .altthemepics 
 {
     column-gap: 0px;
