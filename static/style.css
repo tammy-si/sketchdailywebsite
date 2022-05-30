@@ -107,6 +107,7 @@ header {
     cursor: pointer;
     padding: 2px;
     margin-left: 4px;
+    color: black;
 }
 
 .skipButton img{
