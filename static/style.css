@@ -116,7 +116,11 @@ header {
     float: center;
 }
 
-.skipButton:hover {
+.skipButton a {
+    color: black;
+}
+
+.skipButton a:hover {
     filter: grayscale(20%);
     color: #0088a9;
 }

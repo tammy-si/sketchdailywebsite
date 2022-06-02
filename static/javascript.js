@@ -80,7 +80,7 @@ function enlargeImage(originalPic) {
 // need the window.onload because otherwise the functions might run before the DOM fully loads
 window.onload = function () {
     cursorLocation = document.getElementById("digitSec");
-
+    console.log("test")
     // event handler to restrict the input for the timer, also to update the timerDigits 
     document.getElementById("timerInput").oninput = function (event) {
         updateDigits();

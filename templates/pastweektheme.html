@@ -1,84 +1,15 @@
-{% extends "layout.html" %}
+{% extends "themelayout.html" %}
 
 {% block title %} 
     Chosen Past Week Themes
 {% endblock %}
 
-{% block main %}
-<div class="timer">
-    <h1>Timer</h1>
-    <div class = "timerInner">
-        <div class = "timerDigits" id="timerDigits">
-            <span id = "digit5" onclick = "moveCursor(this)">0</span><span id = "digit4" onclick = "moveCursor(this)">0</span><span id = "digitH" onclick = "moveCursor(this)">h</span>
-            <span id = "digit3" onclick = "moveCursor(this)">0</span><span id = "digit2" onclick = "moveCursor(this)">5</span><span id = "digitM" onclick = "moveCursor(this)">m</span>
-            <span id = "digit1" onclick = "moveCursor(this)">0</span><span id = "digit0" onclick = "moveCursor(this)" >0</span><span id = "digitSec" onclick = "moveCursor(this)" class= "timerCursor cursorSpecial">s</span>
-        </div>
-        <div class = "finalTimer" id= "finalTimer">
-            <span>5m 00s<span>
-        </div>
-        <input id= "timerInput"></input>
-        <div class = "timerButtons">
-            <button id = "timerReset">Reset</button>
-            <button id = "timerStart" >Start</button>
-            <button id = "timerStop" style = "display: none;">Stop</button>
-        </div>
-    </div>
-</div>
-<div class="themediv">
-    <div class="headings">
-        <h1 id = "mainHeader">Here are the theme's for the date {{ dateChoice }}</h1>
-        <h2>The main theme for that day is {{ mainThemeChoice }}.</h2>
-        <div id = "mainRandomButton" class = "randomButton">
-            <p>Get a random<br> main theme picture</p>
-            <img src="https://img.icons8.com/external-kiranshastry-lineal-kiranshastry/64/000000/external-random-interface-kiranshastry-lineal-kiranshastry.png"/>
-        </div>
-        <a href ='#randHeader'><div id = "skipDownButton" class = "skipButton">
-            <p>Skip down to<br>the alternate theme </p>
-            <img src="https://cdn-icons-png.flaticon.com/512/32/32195.png"/>
-        </div></a>
-    </div>
-    <div class = "enlargediv">
-        <div id = "cover"></div>
-        <img id = "closeButton" src = "https://lh3.googleusercontent.com/gupmqgL-ChT426pt51mxRwgXKxvq1gIYQ8uxLFYCOEtLOjdiNY1rlZ7Yb_0AnUNUkKZz4P2t9fuiBrouBF_SnWE1OhbU8P2vC7rDZizcAXf67_3YPvOjIYuvwUv3hxuZ3jOOkjRD=s200-p-k?source=screenshot.guru">
-        <img id = "enlargedImg">
-    </div>
-    <div class="mainthemepics">
-    </div>
-    <div class="headings" id = "randHeader">
-        <h2>If you don't like the main theme, there's an alternative theme! </h2>
-        <p>The alternative theme for that day is {{ altThemeChoice }}</p>
-        <div id = "altRandomButton" class = "randomButton">
-            <p>Get a random <br> alternate theme picture</p>
-            <img src="https://img.icons8.com/external-kiranshastry-lineal-kiranshastry/64/000000/external-random-interface-kiranshastry-lineal-kiranshastry.png"/>
-        </div>
-        <a href ='#mainHeader'>
-            <div id = "skipUpButton" class = "skipButton">
-                <p>Skip up to<br>the main theme </p>
-                <img src="https://cdn-icons-png.flaticon.com/512/130/130906.png"/>
-            </div>
-        </a>
-    </div>
-    <div class="altthemepics">
-    </div>
-</div>
-<footer>
-    <div>Icons made by <a href="https://www.flaticon.com/authors/kiranshastry" title="Kiranshastry">Kiranshastry</a> from <a href="https://www.flaticon.com/" title="Flaticon">www.flaticon.com</a></div>
-</footer>
-<script>
-    // calling the functions that losad the pictures.
-    try {
-        console.log("tester");
-        loadPictures('{{ mainThemeChoice }}', true, '{{ upsplash_access }}');
-    }
-    catch(err) {
-            console.error(error);
-    }
-    try {
-        console.log("test");
-        loadPictures('{{ altThemeChoice }}', false, '{{ upsplash_access }}');
-    }
-    catch(error) {
-        console.error(error);
-    }
-</script>
+
+{% block mainheading %}
+    <h1 id = "mainHeader">Here are the theme's for the date {{ dateChoice }}</h1>
+    <h2>The main theme for that day is {{ maintheme }}.</h2>
+{% endblock %}
+
+{% block altthemeheading %}
+    <p>The alternative theme for that day is {{ alttheme }}</p>
 {% endblock %}
