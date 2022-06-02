@@ -273,6 +273,7 @@ window.onload = function () {
 
  // load the images from upsplash based on today's theme
  async function loadPictures (theme, main, upsplash_access_key) {
+     console.log(theme, main)
     // remove special characters from the theme passed in so the query doesn't break
     theme = theme.replace(/[^a-zA-Z ]/g, '');
     // for get multiple pages of images
