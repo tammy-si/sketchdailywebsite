@@ -26,7 +26,7 @@
 </div>
 <div class="themediv">
     <div class="headings">
-        <h1>Here are the theme's for the date {{ dateChoice }}</h1>
+        <h1 id = "mainHeader">Here are the theme's for the date {{ dateChoice }}</h1>
         <h2>The main theme for that day is {{ mainThemeChoice }}.</h2>
         <div id = "mainRandomButton" class = "randomButton">
             <p>Get a random<br> main theme picture</p>
@@ -51,6 +51,12 @@
             <p>Get a random <br> alternate theme picture</p>
             <img src="https://img.icons8.com/external-kiranshastry-lineal-kiranshastry/64/000000/external-random-interface-kiranshastry-lineal-kiranshastry.png"/>
         </div>
+        <a href ='#mainHeader'>
+            <div id = "skipUpButton" class = "skipButton">
+                <p>Skip up to<br>the main theme </p>
+                <img src="https://cdn-icons-png.flaticon.com/512/130/130906.png"/>
+            </div>
+        </a>
     </div>
     <div class="altthemepics">
     </div>

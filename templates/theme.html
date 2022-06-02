@@ -26,16 +26,18 @@
 </div>
 <div class="themediv">
     <div class="headings">
-        <h1>Today's Date is : {{ today }}</h1>
+        <h1 id = "mainHeader" >Today's Date is : {{ today }}</h1>
         <h2>Today's theme is {{ maintheme }}.</h2>
         <div id = "mainRandomButton" class = "randomButton">
             <p>Get a random<br> main theme picture</p>
             <img src="https://img.icons8.com/external-kiranshastry-lineal-kiranshastry/64/000000/external-random-interface-kiranshastry-lineal-kiranshastry.png"/>
         </div>
-        <a href ='#randHeader'><div id = "skipDownButton" class = "skipButton">
-            <p>Skip down to<br>the alternate theme </p>
-            <img src="https://cdn-icons-png.flaticon.com/512/32/32195.png"/>
-        </div></a>
+        <a href ='#randHeader'>
+            <div id = "skipDownButton" class = "skipButton">
+                <p>Skip down to<br>the alternate theme </p>
+                <img src="https://cdn-icons-png.flaticon.com/512/32/32195.png"/>
+            </div>
+        </a>
     </div>
     <div class = "enlargediv">
         <div id = "cover"></div>
@@ -51,6 +53,12 @@
             <p>Get a random <br> alternate theme picture</p>
             <img src="https://img.icons8.com/external-kiranshastry-lineal-kiranshastry/64/000000/external-random-interface-kiranshastry-lineal-kiranshastry.png"/>
         </div>
+        <a href ='#mainHeader'>
+            <div id = "skipUpButton" class = "skipButton">
+                <p>Skip up to<br>the main theme </p>
+                <img src="https://cdn-icons-png.flaticon.com/512/130/130906.png"/>
+            </div>
+        </a>
     </div>
     <div class="altthemepics">
     </div>
