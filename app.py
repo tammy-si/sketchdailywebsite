@@ -92,4 +92,4 @@ def pastweek():
         altThemeChoice = request.form.get("altThemeChoice")
         dateChoice = request.form.get("dateChoice")
         print(dateChoice)
-        return render_template("pastweektheme.html", mainThemeChoice = mainThemeChoice, altThemeChoice = altThemeChoice, dateChoice = dateChoice, upsplash_access = environ.get('UPSPLASH_ACCESS_KEY'))
+        return render_template("pastweektheme.html", maintheme = mainThemeChoice, alttheme = altThemeChoice, dateChoice = dateChoice, upsplash_access = environ.get('UPSPLASH_ACCESS_KEY'))
