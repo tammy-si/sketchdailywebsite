@@ -389,7 +389,11 @@ tr {
 
 /* css for mobile */
 @media only screen and (max-device-width: 480px) {
-    .timer:focus {
+    .timer:hover, .info-slide:active {
         right: 0;
+    }
+
+    .timer {
+        color:red
     }
 }
