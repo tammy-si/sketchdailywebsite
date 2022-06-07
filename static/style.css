@@ -389,7 +389,7 @@ tr {
 
 /* css for mobile */
 @media only screen and (max-device-width: 480px) {
-    .timer:hover, .info-slide:active {
+    .timer:hover, .timer:active {
         right: 0;
     }
 
