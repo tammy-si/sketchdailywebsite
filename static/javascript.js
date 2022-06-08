@@ -17,6 +17,9 @@ var currentTime = 300;
 var backgroundOff;
 var initialTimeFlag = true;
 var timerInterval;
+// for the timer sound to work on mobile
+var audio = new Audio();
+audio.autoplay = true;
 
  // when we hover over a picture
 function onHover(pic) {
@@ -80,7 +83,6 @@ function enlargeImage(originalPic) {
 // need the window.onload because otherwise the functions might run before the DOM fully loads
 window.onload = function () {
     cursorLocation = document.getElementById("digitSec");
-    console.log("test")
     // event handler to restrict the input for the timer, also to update the timerDigits 
     document.getElementById("timerInput").oninput = function (event) {
         updateDigits();
@@ -273,8 +275,9 @@ window.onload = function () {
 
     // for mobile users
     if (/Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent)) {
-        alert("hi")
         document.getElementById("timerHeader").onclick = function() {
+            audio.src = "static/mixkit-cowbell-sharp-hit-1743.wav"
+            audio.play()
             if (document.getElementById("timerOuter").style.right == "0px") {
                 document.getElementById("timerOuter").style.right = "-252px";
             } else {
@@ -553,8 +556,7 @@ function updateTime() {
     if (currentTime == 0) {
         // audio by bone666138 at freesound.org
         // https://freesound.org/people/bone666138/sounds/198841/
-        var audio = new Audio('static/198841__bone666138__analog-alarm-clock.wav');
-        audio.autoplay = true;
+        audio.src = "static/198841__bone666138__analog-alarm-clock.wav"
         audio.play();
         document.getElementById("timerStart").style.display = "";
         document.getElementById("timerStop").style.display = "none";
