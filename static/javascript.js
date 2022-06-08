@@ -274,11 +274,11 @@ window.onload = function () {
     // for mobile users
     if (/Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent)) {
         alert("hi")
-        document.getElementById("timerOuter").onclick = function() {
+        document.getElementById("timerHeader").onclick = function() {
             if (document.getElementById("timerOuter").style.right == "0px") {
                 document.getElementById("timerOuter").style.right = "-252px";
             } else {
-                document.getElementById("timerOuter").style.right = "0px"
+                document.getElementById("timerOuter").style.right = "0px";
             }
 
         }
