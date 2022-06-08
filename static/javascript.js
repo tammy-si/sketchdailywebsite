@@ -554,6 +554,7 @@ function updateTime() {
         // audio by bone666138 at freesound.org
         // https://freesound.org/people/bone666138/sounds/198841/
         var audio = new Audio('static/198841__bone666138__analog-alarm-clock.wav');
+        audio.autoplay = true;
         audio.play();
         document.getElementById("timerStart").style.display = "";
         document.getElementById("timerStop").style.display = "none";
