@@ -276,6 +276,9 @@ window.onload = function () {
     // for mobile users
     if (/Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent)) {
         document.getElementById("timerHeader").onclick = function() {
+            // this audio thing here somehow makes the timer ring work, has to do something with safari needing user interaction
+            audio.src = "static/mixkit-cowbell-sharp-hit-1743.wav"
+            audio.play()
             if (document.getElementById("timerOuter").style.right == "0px") {
                 document.getElementById("timerOuter").style.right = "-252px";
             } else {
