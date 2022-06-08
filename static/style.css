@@ -385,15 +385,3 @@ tr {
     border-bottom: 0;
     border-top: 1px solid rgb(0, 0, 0, 1);
 }
-
-
-/* css for mobile */
-@media only screen and (max-device-width: 480px) {
-    .timer:hover, .timer:active {
-        right: 0;
-    }
-
-    .timer {
-        color:red
-    }
-}
