@@ -269,6 +269,20 @@ window.onload = function () {
         document.getElementById("enlargedImg").style.display = "initial";
         enlarge = true;
     }
+
+
+    // for mobile users
+    if (/Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent)) {
+        alert("hi")
+        document.getElementById("timerOuter").onclick = function() {
+            if (document.getElementById("timerOuter").style.right == "0px") {
+                document.getElementById("timerOuter").style.right = "-252px";
+            } else {
+                document.getElementById("timerOuter").style.right = "0px"
+            }
+
+        }
+    }
 }
 
  // load the images from upsplash based on today's theme
