@@ -7,6 +7,7 @@ import praw
 app = Flask(__name__)
 
 #  connection to the environment variable for the secret keys and stuff
+# note: I think this config isn't reallly used because I just set the environment variables when hosting in heroku.
 config = dotenv_values(".env")
 
 # authenticating for praw
