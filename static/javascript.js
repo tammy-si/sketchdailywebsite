@@ -180,6 +180,8 @@ window.onload = function () {
 
     // when the user wants to start the timer by pressing start button
     document.getElementById("timerStart").onclick = function () {
+        // putting this here to see if it stop the problem on safari not letting audio play without interaction
+        audio.src = ""
         // prevent users from trying to start the time when the time is 0,
         if (currentTime == 0) {
             return;
